@@ -71,7 +71,7 @@ label {
 
 .submit-btn {
     cursor: pointer;
-    
+
     grid-column: 1 / -1;
     width: 80%;
     justify-self: center;
@@ -87,5 +87,9 @@ label {
 }
 
 .submit-btn:hover {
-    background-color: var(--page-color);
+    background-color: color-mix(
+        in srgb,
+        var(--pw-background-color),
+        transparent 80%
+    );
 }
