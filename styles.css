@@ -1,0 +1,91 @@
+:root {
+    --page-color: #586a6a;
+    --background-color: #c9f9ff;
+    --body-text-color: #0b0033;
+    --pw-background-color: #419d78;
+    --pw-text-color: #f0f0f0;
+}
+
+body {
+    background-color: var(--page-color);
+    color: var(--body-text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: var(--background-color);
+    padding: 3rem;
+    margin: 3rem;
+    border: #5e6472;
+    border-radius: 10px;
+    border: 3px solid var(--body-text-color);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    row-gap: 1rem;
+    column-gap: 3rem;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.char-amount-container {
+    display: flex;
+    align-items: center;
+}
+
+#charAmountNum {
+    width: 3rem;
+}
+
+#title {
+    text-align: center;
+    margin: 0;
+}
+
+label {
+    font-weight: bold;
+}
+
+.pw-display {
+    background-color: var(--pw-background-color);
+    color: var(--pw-text-color);
+    padding: 1rem;
+    width: 100%;
+    height: 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--body-text-color);
+    text-align: center;
+}
+
+.submit-btn {
+    cursor: pointer;
+    
+    grid-column: 1 / -1;
+    width: 80%;
+    justify-self: center;
+
+    margin: 1rem 0 0 0;
+    padding: 1rem;
+    color: var(--body-text-color);
+    font-size: large;
+
+    background-color: transparent;
+    border: 2px solid var(--body-text-color);
+    border-radius: 35px;
+}
+
+.submit-btn:hover {
+    background-color: var(--page-color);
+}
