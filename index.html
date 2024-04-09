@@ -15,8 +15,8 @@
     <body>
         <div class="container">
             <h1 id="title">Password Generator</h1>
-            <h3 class="pw-display">pw</h3>
-            <form class="form">
+            <h3 id="pwDisplay" class="pw-display">pw</h3>
+            <form id="pwGeneratorForm" class="form">
                 <label for="charAmountNum">Number of Characters</label>
                 <div class="char-amount-container">
                     <input
@@ -35,10 +35,10 @@
                     />
                 </div>
                 
-                <label for="includeUppercase">Include Uppercase</label>
+                <label for="includeUpper">Include Uppercase</label>
                 <input
                     type="checkbox"
-                    id="includeUppercase"
+                    id="includeUpper"
                 />
 
                 <label for="includeNum">Include Numbers</label>
