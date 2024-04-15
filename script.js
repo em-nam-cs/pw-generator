@@ -32,6 +32,8 @@ const pwDisplayEl = document.getElementById("pwDisplay");
 
 charAmountNum.addEventListener("input", syncCharAmount);
 charAmountRange.addEventListener("input", syncCharAmount);
+includeBasicSymbolsEl.addEventListener("input", syncSymbols);
+includeAllSymbolsEl.addEventListener("click", syncSymbols);
 
 form.addEventListener("submit", submitForm);
 
@@ -133,4 +135,44 @@ function syncCharAmount(e) {
     const value = e.target.value;
     charAmountNum.value = value;
     charAmountRange.value = value;
+}
+
+/**
+ * set the values fo rthe symbol checkboxes to match
+ * if all symbols are checked, then mark basic symbols
+ * if basic symbols are unchecked, then remove all symbols
+ * @param {*} e
+ */
+function syncSymbols(e) {
+    console.log(e.target);
+    console.log(e.target.previousElementSibling.htmlFor);
+    console.log(`prev sib: ${e.target.previousElementSibling}`);
+
+    console.log("before update:");
+    console.log(includeBasicSymbolsEl.checked);
+    console.log(includeAllSymbolsEl.checked);
+
+    console.log(
+        `all if ${(e.target.id =
+            "includeAllSymbols" && includeAllSymbolsEl.checked)}`
+    );
+    console.log(
+        `basic if ${(e.target.previousElementSibling.htmlFor =
+            "includeSymbolsLabel" && !includeBasicSymbolsEl.checked)}`
+    );
+
+    if ((e.target.id = "includeAllSymbols" && includeAllSymbolsEl.checked)) {
+        includeBasicSymbolsEl.checked = true;
+    }
+
+    if (
+        (e.target.previousElementSibling.id =
+            "includeSymbolsLabel" && !includeBasicSymbolsEl.checked)
+    ) {
+        includeAllSymbolsEl.checked = false;
+    }
+
+    console.log("after update:");
+    console.log(includeBasicSymbolsEl.checked);
+    console.log(includeAllSymbolsEl.checked);
 }

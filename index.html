@@ -18,11 +18,45 @@
             <h3
                 id="pwDisplay"
                 class="pw-display"
-            >password</h3>
+            >
+                password
+            </h3>
             <form
                 id="pwGeneratorForm"
                 class="form"
             >
+                <label for="includeUpper">Include Uppercase</label>
+                <input
+                    type="checkbox"
+                    id="includeUpper"
+                />
+
+                <label for="includeNum">Include Numbers</label>
+                <input
+                    type="checkbox"
+                    id="includeNum"
+                />
+
+                <label
+                    id="includeSymbolsLabel"
+                    for="includeBasicSymbols"
+                    >Include Symbols</label
+                >
+
+                <div class="symbol-check-container">
+                    <input
+                        type="checkbox"
+                        id="includeBasicSymbols"
+                    />
+                    <p>Basic Only</p>
+
+                    <input
+                        type="checkbox"
+                        id="includeAllSymbols"
+                    />
+                    <p>All Symbols</p>
+                </div>
+
                 <label for="charAmountNum">Number of Characters</label>
                 <div class="char-amount-container">
                     <input
@@ -40,30 +74,6 @@
                         value="8"
                     />
                 </div>
-
-                <label for="includeUpper">Include Uppercase</label>
-                <input
-                    type="checkbox"
-                    id="includeUpper"
-                />
-
-                <label for="includeNum">Include Numbers</label>
-                <input
-                    type="checkbox"
-                    id="includeNum"
-                />
-
-                <label for="includeBasicSymbols">Include Basic Symbols</label>
-                <input
-                    type="checkbox"
-                    id="includeBasicSymbols"
-                />
-
-                <label for="includeAllSymbols">Include All Symbols</label>
-                <input
-                    type="checkbox"
-                    id="includeAllSymbols"
-                />
 
                 <button
                     class="submit-btn"

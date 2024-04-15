@@ -33,7 +33,7 @@ body {
 .form {
     display: grid;
     grid-template-columns: repeat(2, auto);
-    row-gap: 1rem;
+    row-gap: 1.25rem;
     column-gap: 3rem;
 
     align-items: center;
@@ -42,6 +42,12 @@ body {
 
 .char-amount-container {
     display: flex;
+    align-items: center;
+}
+
+.symbol-check-container {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -92,4 +98,8 @@ label {
         var(--pw-background-color),
         transparent 80%
     );
+}
+
+input[type="checkbox"] {
+    height: 1.5rem;
 }
