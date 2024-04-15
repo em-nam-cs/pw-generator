@@ -7,12 +7,28 @@
 @date 04-02-2024
  */
 
+const LOWERCASE_LOWER_LIMIT = 97;
+const LOWERCASE_UPPER_LIMIT = 122;
+const UPPERCASE_LOWER_LIMIT = 65;
+const UPPERCASE_UPPER_LIMIT = 90;
+const NUM_LOWER_LIMIT = 48;
+const NUM_UPPER_LIMIT = 57;
+
+const SYMBOL_LOWER_LIMITS = [33, 58, 91, 123];
+const SYMBOL_UPPER_LIMITS = [47, 64, 96, 126];
+const BASIC_SYMBOLS_ASCII_CODES = [
+    33, 35, 36, 37, 38, 40, 41, 42, 43, 45, 46, 58, 59, 61, 63, 64, 91, 93, 126,
+];
+
+// 33-47, 58 - 64, 91-96, 123-126
+
 const charAmountRange = document.getElementById("charAmountRange");
 const charAmountNum = document.getElementById("charAmountNum");
 const form = document.getElementById("pwGeneratorForm");
 const includeUpperEl = document.getElementById("includeUpper");
 const includeNumEl = document.getElementById("includeNum");
-const includeSymbolsEl = document.getElementById("includeSymbols");
+const includeBasicSymbolsEl = document.getElementById("includeBasicSymbols");
+const includeAllSymbolsEl = document.getElementById("includeAllSymbols");
 const pwDisplayEl = document.getElementById("pwDisplay");
 
 charAmountNum.addEventListener("input", syncCharAmount);
@@ -26,12 +42,14 @@ function submitForm(e) {
     const charAmount = charAmountNum.value;
     const includeUpper = includeUpperEl.checked;
     const includeNum = includeNumEl.checked;
-    const includeSymbols = includeSymbolsEl.checked;
+    const includeBasicSymbols = includeBasicSymbolsEl.checked;
+    const includeAllSymbols = includeAllSymbolsEl.checked;
     const password = generatePw(
         charAmount,
         includeUpper,
         includeNum,
-        includeSymbols
+        includeBasicSymbols,
+        includeAllSymbols
     );
 
     pwDisplayEl.innerHTML = password;
@@ -44,18 +62,60 @@ function submitForm(e) {
  * @param {*} includeNum include ascii char 48 - 57
  * @param {*} includeSymbols include ascii char 33-47, 58 - 64, 91-96, 123-126
  */
-function generatePw(charAmount, includeUpper, includeNum, includeSymbols) {
-    let pw = "tereasfsda123st";
-    console.log(charAmount);
-    console.log(includeUpper);
-    console.log(includeNum);
-    console.log(includeSymbols);
-    for (let i = 0; i < charAmount; i++) {
-        const randValue = Math.floor(Math.random() * totalOptions);
-        console.log("char");
+function generatePw(
+    charAmount,
+    includeUpper,
+    includeNum,
+    includeBasicSymbols,
+    includeAllSymbols
+) {
+    let pw = "";
+    let charOptions = [];
+    generateCharOptions(
+        charOptions,
+        LOWERCASE_LOWER_LIMIT,
+        LOWERCASE_UPPER_LIMIT
+    );
+
+    if (includeUpper) {
+        generateCharOptions(
+            charOptions,
+            UPPERCASE_LOWER_LIMIT,
+            UPPERCASE_UPPER_LIMIT
+        );
     }
-    // String.fromCharCode();
+    if (includeNum) {
+        generateCharOptions(charOptions, NUM_LOWER_LIMIT, NUM_UPPER_LIMIT);
+    }
+
+    if (includeBasicSymbols && !includeAllSymbols) {
+        charOptions = charOptions.concat(BASIC_SYMBOLS_ASCII_CODES);
+    }
+
+    if (includeAllSymbols) {
+        for (let i = 0; i < SYMBOL_LOWER_LIMITS.length; i++) {
+            generateCharOptions(
+                charOptions,
+                SYMBOL_LOWER_LIMITS[i],
+                SYMBOL_UPPER_LIMITS[i]
+            );
+        }
+    }
+
+    for (let i = 0; i < charAmount; i++) {
+        const randIndex = Math.floor(Math.random() * charOptions.length);
+        pw = pw + String.fromCharCode(charOptions[randIndex]);
+    }
+
+    console.log(charOptions);
+
     return pw;
+}
+
+function generateCharOptions(chars, lowerLimit, upperLimit) {
+    for (let i = lowerLimit; i <= upperLimit; i++) {
+        chars.push(i);
+    }
 }
 
 /**
