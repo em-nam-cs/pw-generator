@@ -49,6 +49,18 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    column-gap: 1.5rem;
+}
+
+.single-symbol-check-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.single-symbol-check-container * {
+    padding: 0.25rem;
+    font-size: large;
 }
 
 #charAmountNum {
@@ -101,5 +113,5 @@ label {
 }
 
 input[type="checkbox"] {
-    height: 1.5rem;
+    height: 1.25rem;
 }
