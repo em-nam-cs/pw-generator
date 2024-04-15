@@ -1,10 +1,11 @@
 /**
 @brief basic password generator that creates a random string password
-    with the given conditions (uppercase, numbers, symbols, length)
+    with the given conditions (uppercase, numbers, basic symbols,
+    all symbols, length)
 
 @references https://www.youtube.com/watch?v=iKo9pDKKHnc
 @author Em Nam
-@date 04-02-2024
+@date 04-15-2024
  */
 
 const LOWERCASE_LOWER_LIMIT = 97;
@@ -19,8 +20,6 @@ const SYMBOL_UPPER_LIMITS = [47, 64, 96, 126];
 const BASIC_SYMBOLS_ASCII_CODES = [
     33, 35, 36, 37, 38, 40, 41, 42, 43, 45, 46, 58, 59, 61, 63, 64, 91, 93, 126,
 ];
-
-// 33-47, 58 - 64, 91-96, 123-126
 
 const charAmountRange = document.getElementById("charAmountRange");
 const charAmountNum = document.getElementById("charAmountNum");
@@ -56,11 +55,13 @@ function submitForm(e) {
 }
 
 /**
- * default is to only include ascii char 97-122 (lowercase letters) all ascii char are based in decimal
+ * default is to only include ascii char 97-122 (lowercase letters) all ascii 
+    char are based in decimal
  * @param {*} charAmount determines how many characters to generate
- * @param {*} includeUpper include ascii char 65 - 90
- * @param {*} includeNum include ascii char 48 - 57
- * @param {*} includeSymbols include ascii char 33-47, 58 - 64, 91-96, 123-126
+ * @param {*} includeUpper boolean when true include ascii char 65 - 90
+ * @param {*} includeNum boolean when true include ascii char 48 - 57
+ * @param {*} includeBasicSymbols boolean when true include the BASIC_SYMBOLS
+ * @param {*} includeAllSymbols boolean when true include ascii char 33-47, 58 - 64, 91-96, 123-126
  */
 function generatePw(
     charAmount,
@@ -107,11 +108,16 @@ function generatePw(
         pw = pw + String.fromCharCode(charOptions[randIndex]);
     }
 
-    console.log(charOptions);
-
     return pw;
 }
 
+/**
+ * generates the ascii character codes within the given range and appends it
+ * to the existing array storing the possible character options
+ * @param {*} chars array with possible character options
+ * @param {*} lowerLimit lower limit of the range (inclusive)
+ * @param {*} upperLimit upper limit of the range (inclusive)
+ */
 function generateCharOptions(chars, lowerLimit, upperLimit) {
     for (let i = lowerLimit; i <= upperLimit; i++) {
         chars.push(i);
@@ -119,7 +125,8 @@ function generateCharOptions(chars, lowerLimit, upperLimit) {
 }
 
 /**
- *
+ * set the values for the slider and the number value for the number
+ * of characters to match
  * @param {*} e
  */
 function syncCharAmount(e) {
