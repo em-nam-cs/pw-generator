@@ -15,8 +15,53 @@
     <body>
         <div class="container">
             <h1 id="title">Password Generator</h1>
-            <h3 class="pw-display">pw</h3>
-            <form class="form">
+            <h3
+                id="pwDisplay"
+                class="pw-display"
+            >
+                password
+            </h3>
+            <form
+                id="pwGeneratorForm"
+                class="form"
+            >
+                <label for="includeUpper">Include Uppercase</label>
+                <input
+                    type="checkbox"
+                    id="includeUpper"
+                />
+
+                <label for="includeNum">Include Numbers</label>
+                <input
+                    type="checkbox"
+                    id="includeNum"
+                />
+
+                <label
+                    id="includeSymbolsLabel"
+                    for="includeBasicSymbols"
+                    >Include Symbols</label
+                >
+
+                <div class="symbol-check-container">
+                    <div class="single-symbol-check-container">
+                        <input
+                        type="checkbox"
+                        id="includeBasicSymbols"
+                    />
+                    <p>Basic Only</p>
+                    </div>
+                    
+                    <div class="single-symbol-check-container">
+                    <input
+                        type="checkbox"
+                        id="includeAllSymbols"
+                    />
+                    <p>All Symbols</p>
+                    </div>
+                    
+                </div>
+
                 <label for="charAmountNum">Number of Characters</label>
                 <div class="char-amount-container">
                     <input
@@ -34,26 +79,13 @@
                         value="8"
                     />
                 </div>
-                
-                <label for="includeUppercase">Include Uppercase</label>
-                <input
-                    type="checkbox"
-                    id="includeUppercase"
-                />
 
-                <label for="includeNum">Include Numbers</label>
-                <input
-                    type="checkbox"
-                    id="includeNum"
-                />
-
-                <label for="includeSymbols">Include Symbols</label>
-                <input
-                    type="checkbox"
-                    id="includeSymbols"
-                />
-
-                <button class="submit-btn" type="submit">Generate New Password</button>
+                <button
+                    class="submit-btn"
+                    type="submit"
+                >
+                    Generate New Password
+                </button>
             </form>
         </div>
 
