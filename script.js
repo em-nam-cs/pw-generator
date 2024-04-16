@@ -13,7 +13,6 @@
  * @TODO make generated pw text larger
  * @TODO pick a different font for the pw so it is easier to read
  * @TODO toggle checkboxes so basic, all symbols is synced in the right direction
- 
  */
 
 const LOWERCASE_LOWER_LIMIT = 97;
@@ -40,13 +39,10 @@ const pwDisplayEl = document.getElementById("pwDisplay");
 
 charAmountNum.addEventListener("input", syncCharAmount);
 charAmountRange.addEventListener("input", syncCharAmount);
-includeBasicSymbolsEl.addEventListener("input", syncSymbols);
-includeAllSymbolsEl.addEventListener("click", syncSymbols);
 
 form.addEventListener("submit", submitForm);
 
 function submitForm(e) {
-    console.log("submitting form");
     e.preventDefault();
     const charAmount = charAmountNum.value;
     const includeUpper = includeUpperEl.checked;
@@ -61,7 +57,7 @@ function submitForm(e) {
         includeAllSymbols
     );
 
-    pwDisplayEl.innerHTML = password;
+    pwDisplayEl.innerText = password;
 }
 
 /**
@@ -99,7 +95,7 @@ function generatePw(
         generateCharOptions(charOptions, NUM_LOWER_LIMIT, NUM_UPPER_LIMIT);
     }
 
-    if (includeBasicSymbols && !includeAllSymbols) {
+    if (includeBasicSymbols) {
         charOptions = charOptions.concat(BASIC_SYMBOLS_ASCII_CODES);
     }
 
@@ -116,6 +112,15 @@ function generatePw(
     for (let i = 0; i < charAmount; i++) {
         const randIndex = Math.floor(Math.random() * charOptions.length);
         pw = pw + String.fromCharCode(charOptions[randIndex]);
+    }
+
+    console.log(pw);
+    try {
+        if (pw.length != charAmount) {
+            throw pw.length;
+        }
+    } catch (err) {
+        console.log(`ERROR: ${pw}: supposed to be ${charAmount} != ${err}`);
     }
 
     return pw;
@@ -143,42 +148,4 @@ function syncCharAmount(e) {
     const value = e.target.value;
     charAmountNum.value = value;
     charAmountRange.value = value;
-}
-
-/**
- * set the values fo rthe symbol checkboxes to match
- * if all symbols are checked, then mark basic symbols
- * if basic symbols are unchecked, then remove all symbols
- * @param {*} e
- */
-function syncSymbols(e) {
-    console.log(e.target);
-    // console.log(e.target.previousElementSibling.htmlFor);
-    // console.log(`prev sib: ${e.target.previousElementSibling}`);
-
-    console.log("before update:");
-    console.log(includeBasicSymbolsEl.checked);
-    console.log(includeAllSymbolsEl.checked);
-
-    console.log(
-        `all if ${(e.target.id =
-            "includeAllSymbols" && includeAllSymbolsEl.checked)}`
-    );
-    // console.log(
-    //     `basic if ${(e.target.previousElementSibling.htmlFor =
-    //         "includeSymbolsLabel" && !includeBasicSymbolsEl.checked)}`
-    // );
-
-    // if ((e.target.id = "includeAllSymbols" && includeAllSymbolsEl.checked)) {
-    //     includeBasicSymbolsEl.checked = true;
-    // }
-
-    // if (!includeBasicSymbolsEl.checked) {
-    //     includeAllSymbolsEl.checked = false;
-    // }
-
-    console.log("after update:");
-    console.log(includeBasicSymbolsEl.checked);
-    console.log(includeAllSymbolsEl.checked);
-    console.log("exit");
 }
