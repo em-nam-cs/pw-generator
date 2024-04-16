@@ -5,14 +5,13 @@
 
 @references https://www.youtube.com/watch?v=iKo9pDKKHnc
 @author Em Nam
-@date 04-15-2024
+@date 04-16-2024
 */
 
 /**
  * @TODO make labels larger
  * @TODO make generated pw text larger
  * @TODO pick a different font for the pw so it is easier to read
- * @TODO toggle checkboxes so basic, all symbols is synced in the right direction
  */
 
 const LOWERCASE_LOWER_LIMIT = 97;
@@ -21,7 +20,6 @@ const UPPERCASE_LOWER_LIMIT = 65;
 const UPPERCASE_UPPER_LIMIT = 90;
 const NUM_LOWER_LIMIT = 48;
 const NUM_UPPER_LIMIT = 57;
-
 const SYMBOL_LOWER_LIMITS = [33, 58, 91, 123];
 const SYMBOL_UPPER_LIMITS = [47, 64, 96, 126];
 const BASIC_SYMBOLS_ASCII_CODES = [
@@ -39,9 +37,15 @@ const pwDisplayEl = document.getElementById("pwDisplay");
 
 charAmountNum.addEventListener("input", syncCharAmount);
 charAmountRange.addEventListener("input", syncCharAmount);
-
 form.addEventListener("submit", submitForm);
 
+/**
+ * functionality for when the form is submitted and the password should be 
+        generated. Get the user's values for all the options of characters 
+        and user's choice of password length and generate. Display the password.
+
+ * @param {*} e event that triggers
+ */
 function submitForm(e) {
     e.preventDefault();
     const charAmount = charAmountNum.value;
@@ -78,6 +82,8 @@ function generatePw(
 ) {
     let pw = "";
     let charOptions = [];
+
+    //Add ascii code to array for each option
     generateCharOptions(
         charOptions,
         LOWERCASE_LOWER_LIMIT,
@@ -109,18 +115,10 @@ function generatePw(
         }
     }
 
+    //Randomly chose a value for each character needed in password
     for (let i = 0; i < charAmount; i++) {
         const randIndex = Math.floor(Math.random() * charOptions.length);
         pw = pw + String.fromCharCode(charOptions[randIndex]);
-    }
-
-    console.log(pw);
-    try {
-        if (pw.length != charAmount) {
-            throw pw.length;
-        }
-    } catch (err) {
-        console.log(`ERROR: ${pw}: supposed to be ${charAmount} != ${err}`);
     }
 
     return pw;
@@ -142,7 +140,7 @@ function generateCharOptions(chars, lowerLimit, upperLimit) {
 /**
  * set the values for the slider and the number value for the number
  * of characters to match
- * @param {*} e
+ * @param {*} e event that triggered function
  */
 function syncCharAmount(e) {
     const value = e.target.value;
