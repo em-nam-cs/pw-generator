@@ -169,13 +169,13 @@ function syncSymbols(e) {
     //         "includeSymbolsLabel" && !includeBasicSymbolsEl.checked)}`
     // );
 
-    if ((e.target.id = "includeAllSymbols" && includeAllSymbolsEl.checked)) {
-        includeBasicSymbolsEl.checked = true;
-    }
+    // if ((e.target.id = "includeAllSymbols" && includeAllSymbolsEl.checked)) {
+    //     includeBasicSymbolsEl.checked = true;
+    // }
 
-    if (!includeBasicSymbolsEl.checked) {
-        includeAllSymbolsEl.checked = false;
-    }
+    // if (!includeBasicSymbolsEl.checked) {
+    //     includeAllSymbolsEl.checked = false;
+    // }
 
     console.log("after update:");
     console.log(includeBasicSymbolsEl.checked);
