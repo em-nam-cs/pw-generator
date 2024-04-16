@@ -6,6 +6,14 @@
 @references https://www.youtube.com/watch?v=iKo9pDKKHnc
 @author Em Nam
 @date 04-15-2024
+*/
+
+/**
+ * @TODO make labels larger
+ * @TODO make generated pw text larger
+ * @TODO pick a different font for the pw so it is easier to read
+ * @TODO toggle checkboxes so basic, all symbols is synced in the right direction
+ 
  */
 
 const LOWERCASE_LOWER_LIMIT = 97;
@@ -145,8 +153,8 @@ function syncCharAmount(e) {
  */
 function syncSymbols(e) {
     console.log(e.target);
-    console.log(e.target.previousElementSibling.htmlFor);
-    console.log(`prev sib: ${e.target.previousElementSibling}`);
+    // console.log(e.target.previousElementSibling.htmlFor);
+    // console.log(`prev sib: ${e.target.previousElementSibling}`);
 
     console.log("before update:");
     console.log(includeBasicSymbolsEl.checked);
@@ -156,23 +164,21 @@ function syncSymbols(e) {
         `all if ${(e.target.id =
             "includeAllSymbols" && includeAllSymbolsEl.checked)}`
     );
-    console.log(
-        `basic if ${(e.target.previousElementSibling.htmlFor =
-            "includeSymbolsLabel" && !includeBasicSymbolsEl.checked)}`
-    );
+    // console.log(
+    //     `basic if ${(e.target.previousElementSibling.htmlFor =
+    //         "includeSymbolsLabel" && !includeBasicSymbolsEl.checked)}`
+    // );
 
     if ((e.target.id = "includeAllSymbols" && includeAllSymbolsEl.checked)) {
         includeBasicSymbolsEl.checked = true;
     }
 
-    if (
-        (e.target.previousElementSibling.id =
-            "includeSymbolsLabel" && !includeBasicSymbolsEl.checked)
-    ) {
+    if (!includeBasicSymbolsEl.checked) {
         includeAllSymbolsEl.checked = false;
     }
 
     console.log("after update:");
     console.log(includeBasicSymbolsEl.checked);
     console.log(includeAllSymbolsEl.checked);
+    console.log("exit");
 }
