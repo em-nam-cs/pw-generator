@@ -5,7 +5,13 @@
 
 @references https://www.youtube.com/watch?v=iKo9pDKKHnc
 @author Em Nam
-@date 04-15-2024
+@date 04-16-2024
+*/
+
+/**
+ * @TODO make labels larger
+ * @TODO make generated pw text larger
+ * @TODO pick a different font for the pw so it is easier to read
  */
 
 const LOWERCASE_LOWER_LIMIT = 97;
@@ -14,7 +20,6 @@ const UPPERCASE_LOWER_LIMIT = 65;
 const UPPERCASE_UPPER_LIMIT = 90;
 const NUM_LOWER_LIMIT = 48;
 const NUM_UPPER_LIMIT = 57;
-
 const SYMBOL_LOWER_LIMITS = [33, 58, 91, 123];
 const SYMBOL_UPPER_LIMITS = [47, 64, 96, 126];
 const BASIC_SYMBOLS_ASCII_CODES = [
@@ -32,13 +37,16 @@ const pwDisplayEl = document.getElementById("pwDisplay");
 
 charAmountNum.addEventListener("input", syncCharAmount);
 charAmountRange.addEventListener("input", syncCharAmount);
-includeBasicSymbolsEl.addEventListener("input", syncSymbols);
-includeAllSymbolsEl.addEventListener("click", syncSymbols);
-
 form.addEventListener("submit", submitForm);
 
+/**
+ * functionality for when the form is submitted and the password should be 
+        generated. Get the user's values for all the options of characters 
+        and user's choice of password length and generate. Display the password.
+
+ * @param {*} e event that triggers
+ */
 function submitForm(e) {
-    console.log("submitting form");
     e.preventDefault();
     const charAmount = charAmountNum.value;
     const includeUpper = includeUpperEl.checked;
@@ -53,7 +61,7 @@ function submitForm(e) {
         includeAllSymbols
     );
 
-    pwDisplayEl.innerHTML = password;
+    pwDisplayEl.innerText = password;
 }
 
 /**
@@ -74,6 +82,8 @@ function generatePw(
 ) {
     let pw = "";
     let charOptions = [];
+
+    //Add ascii code to array for each option
     generateCharOptions(
         charOptions,
         LOWERCASE_LOWER_LIMIT,
@@ -91,7 +101,7 @@ function generatePw(
         generateCharOptions(charOptions, NUM_LOWER_LIMIT, NUM_UPPER_LIMIT);
     }
 
-    if (includeBasicSymbols && !includeAllSymbols) {
+    if (includeBasicSymbols) {
         charOptions = charOptions.concat(BASIC_SYMBOLS_ASCII_CODES);
     }
 
@@ -105,6 +115,7 @@ function generatePw(
         }
     }
 
+    //Randomly chose a value for each character needed in password
     for (let i = 0; i < charAmount; i++) {
         const randIndex = Math.floor(Math.random() * charOptions.length);
         pw = pw + String.fromCharCode(charOptions[randIndex]);
@@ -129,50 +140,10 @@ function generateCharOptions(chars, lowerLimit, upperLimit) {
 /**
  * set the values for the slider and the number value for the number
  * of characters to match
- * @param {*} e
+ * @param {*} e event that triggered function
  */
 function syncCharAmount(e) {
     const value = e.target.value;
     charAmountNum.value = value;
     charAmountRange.value = value;
-}
-
-/**
- * set the values fo rthe symbol checkboxes to match
- * if all symbols are checked, then mark basic symbols
- * if basic symbols are unchecked, then remove all symbols
- * @param {*} e
- */
-function syncSymbols(e) {
-    console.log(e.target);
-    console.log(e.target.previousElementSibling.htmlFor);
-    console.log(`prev sib: ${e.target.previousElementSibling}`);
-
-    console.log("before update:");
-    console.log(includeBasicSymbolsEl.checked);
-    console.log(includeAllSymbolsEl.checked);
-
-    console.log(
-        `all if ${(e.target.id =
-            "includeAllSymbols" && includeAllSymbolsEl.checked)}`
-    );
-    console.log(
-        `basic if ${(e.target.previousElementSibling.htmlFor =
-            "includeSymbolsLabel" && !includeBasicSymbolsEl.checked)}`
-    );
-
-    if ((e.target.id = "includeAllSymbols" && includeAllSymbolsEl.checked)) {
-        includeBasicSymbolsEl.checked = true;
-    }
-
-    if (
-        (e.target.previousElementSibling.id =
-            "includeSymbolsLabel" && !includeBasicSymbolsEl.checked)
-    ) {
-        includeAllSymbolsEl.checked = false;
-    }
-
-    console.log("after update:");
-    console.log(includeBasicSymbolsEl.checked);
-    console.log(includeAllSymbolsEl.checked);
 }

@@ -46,20 +46,31 @@
                 <div class="symbol-check-container">
                     <div class="single-symbol-check-container">
                         <input
-                        type="checkbox"
-                        id="includeBasicSymbols"
-                    />
-                    <p>Basic Only</p>
+                            type="radio"
+                            id="includeNoSymbols"
+                            name="symbols"
+                            checked="checked"
+                        />
+                        <p>None</p>
                     </div>
-                    
+
                     <div class="single-symbol-check-container">
-                    <input
-                        type="checkbox"
-                        id="includeAllSymbols"
-                    />
-                    <p>All Symbols</p>
+                        <input
+                            type="radio"
+                            id="includeBasicSymbols"
+                            name="symbols"
+                        />
+                        <p>Basic Only</p>
                     </div>
-                    
+
+                    <div class="single-symbol-check-container">
+                        <input
+                            type="radio"
+                            id="includeAllSymbols"
+                            name="symbols"
+                        />
+                        <p>All</p>
+                    </div>
                 </div>
 
                 <label for="charAmountNum">Number of Characters</label>
