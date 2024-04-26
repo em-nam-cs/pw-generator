@@ -8,12 +8,6 @@
 @date 04-16-2024
 */
 
-/**
- * @TODO make labels larger
- * @TODO make generated pw text larger
- * @TODO pick a different font for the pw so it is easier to read
- */
-
 const LOWERCASE_LOWER_LIMIT = 97;
 const LOWERCASE_UPPER_LIMIT = 122;
 const UPPERCASE_LOWER_LIMIT = 65;
