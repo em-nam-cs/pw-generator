@@ -40,6 +40,8 @@ body {
 
     align-items: center;
     justify-content: center;
+
+    accent-color: var(--pw-background-color);
 }
 
 .char-amount-container {
