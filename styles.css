@@ -1,8 +1,8 @@
 :root {
-    --page-color: #586a6a;
-    --background-color: #c9f9ff;
+    --page-color: #859aad;
+    --background-color: #b6c3ce;
+    --pw-background-color: #076974;
     --body-text-color: #0b0033;
-    --pw-background-color: #419d78;
     --pw-text-color: #f0f0f0;
 }
 
@@ -14,7 +14,8 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
 }
 
 .container {
@@ -39,7 +40,6 @@ body {
 
     align-items: center;
     justify-content: center;
-    
 }
 
 .char-amount-container {
@@ -72,7 +72,7 @@ body {
 }
 
 #title {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     text-align: center;
     margin: 0;
 }
@@ -114,8 +114,9 @@ label {
     background-color: color-mix(
         in srgb,
         var(--pw-background-color),
-        transparent 80%
+        transparent 90%
     );
+    border-color: color-mix(in srgb, var(--body-text-color), transparent 50%);
 }
 
 input[type="checkbox"] {
