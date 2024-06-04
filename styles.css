@@ -13,7 +13,7 @@
     --nav-background: var(--body-text-color);
     --pw-text-color: #f0f0f0;
     --nav-text-color: var(--pw-text-color);
-    --tab-radius: 40px 40px 0 0;
+    --tab-radius: 100vh 100vh 0 0;
 }
 
 body {
@@ -49,11 +49,11 @@ nav {
 
 .nav-list {
     /* background-color: pink; */
-    /* display: grid; */
-    /* grid-template-columns: repeat(3, 1fr); */
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* display: flex;
     justify-content: space-evenly;
-    align-items: flex-end;
+    align-items: flex-end; */
 
     gap: 2rem;
     margin: 1rem 2rem;
@@ -77,12 +77,14 @@ nav {
     text-align: center;
     height: 100%;
     min-width: 20vw;
-    /* padding: 0 1rem; */
+    
     border-radius: var(--tab-radius);
 
     /*grid to center text vertically*/ /*Not needed if using flex box????*/
-    /* display: grid; */
-    /* align-items: end; */
+    display: grid;
+    align-items: center;
+
+    /* background-color: blue; */
 }
 
 .nav-list li.active {
