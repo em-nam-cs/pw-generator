@@ -22,7 +22,7 @@ body {
 
     display: grid;
     grid-template-rows: auto 1fr;
-    row-gap: 5rem;
+    row-gap: 3rem;
     align-items: start;
 
     height: 100vh;
