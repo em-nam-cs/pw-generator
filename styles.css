@@ -18,13 +18,15 @@ body {
     color: var(--body-text-color);
 
     /*del*/
-    display: flex;
+    /* display: flex; */
     /* flex-direction: column; */
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+
     /*del*/
 
     display: grid;
+    /* grid-template-rows: auto 2fr; */
+    align-items: start;
 
     height: 100vh;
     overflow: hidden;
@@ -35,7 +37,10 @@ body {
     text-align: center;
 }
 
-
+.layout {
+    max-height: 500px;
+    min-height: 70px;
+}
 
 /*Password Generator Specific Styles*/
 .container.password-generator {
@@ -53,6 +58,7 @@ body {
 
     text-align: start;
 }
+
 
 .form {
     display: grid;
