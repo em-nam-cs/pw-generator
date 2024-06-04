@@ -34,24 +34,25 @@ body {
 }
 
 .layout {
-    /* margin: 20px 50px; */
     background-color: var(--nav-background);
     width: 100%;
     font-size: large;
-    min-height: 3rem;
 }
 
 nav {
+    /*same as using the wrapper div.layout*/
     /* background-color:#0b0033;
     width: 100%;
     font-size: large; */
 }
 
 .nav-list {
+    background-color: pink;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin: 0;
+    gap: 2rem;
+    margin: 2rem 2rem;
+    margin-bottom: 0;
     padding: 0;
 
     align-items: center;
@@ -60,16 +61,20 @@ nav {
 
 .nav-list a {
     color: var(--nav-text-color);
+    /* background-color: purple; */
     text-decoration: none;
     display: block;
     padding: 1rem 0;
-    /* height: 100%; */
-    /* padding: 0; */
 }
 
 .nav-list li {
     text-align: center;
     background-color: blue;
+    height: 100%;
+
+    /*grid to center text vertically*/
+    display: grid;
+    align-items: center;
 }
 
 .nav-list li.active {
