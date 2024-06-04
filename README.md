@@ -7,3 +7,7 @@ Generate random string password
 @references https://www.youtube.com/watch?v=iKo9pDKKHnc
 @author Em Nam
 @date 04-02-2024
+
+
+# pw-strength-tester
+Tests a password's strength and makes recommendations

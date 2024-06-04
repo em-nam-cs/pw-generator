@@ -1,7 +1,14 @@
+*::before,
+*::after,
+* {
+    box-sizing: border-box;
+    --strength-meter-radius: 1rem;
+}
+
 :root {
     --page-color: #859aad;
     --background-color: #b6c3ce;
-    --pw-background-color: #076974;
+    --accent-color: #076974;
     --body-text-color: #0b0033;
     --pw-text-color: #f0f0f0;
 }
@@ -9,13 +16,23 @@
 body {
     background-color: var(--page-color);
     color: var(--body-text-color);
+
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+
+    height: 100vh;
+    overflow: hidden;
     margin: 0;
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
         sans-serif;
+
+    text-align: center;
+}
+
+.password-generator {
+    text-align: start;
+
 }
 
 .container {
@@ -41,7 +58,7 @@ body {
     align-items: center;
     justify-content: center;
 
-    accent-color: var(--pw-background-color);
+    accent-color: var(--accent-color);
 }
 
 .char-amount-container {
@@ -85,11 +102,11 @@ label {
 }
 
 .pw-display {
-    background-color: var(--pw-background-color);
+    background-color: var(--accent-color);
     color: var(--pw-text-color);
     padding: 1rem;
     width: 100%;
-    height: 1.5rem;
+    min-height: 100%;
     border-radius: 5px;
     border: 1px solid var(--body-text-color);
     text-align: center;
@@ -115,7 +132,7 @@ label {
 .submit-btn:hover {
     background-color: color-mix(
         in srgb,
-        var(--pw-background-color),
+        var(--accent-color),
         transparent 90%
     );
     border-color: color-mix(in srgb, var(--body-text-color), transparent 50%);
