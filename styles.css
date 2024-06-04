@@ -1,3 +1,11 @@
+/*TODO STYLING
+- set a max width of the containers for the dislpays
+- try a different ype of nav bar (side panel, with more modern style)
+- make tab shape look better (especially when there is wrapping)
+- decide which coloring, make the text on the tabs stnad out more
+
+*/
+
 *::before,
 *::after,
 * {
@@ -14,6 +22,10 @@
     --pw-text-color: #f0f0f0;
     --nav-text-color: var(--pw-text-color);
     --tab-radius: 100vh 100vh 0 0;
+
+    /*try swapping page color and nav bar bg color*/
+    /* --page-color: #0b0033; */
+    /* --nav-background: #859aad; */
 }
 
 body {
@@ -73,11 +85,15 @@ nav {
     border-radius: var(--tab-radius);
 }
 
+.nav-list li.active > a {
+    color: var(--body-text-color);
+}
+
 .nav-list li {
     text-align: center;
     height: 100%;
     min-width: 20vw;
-    
+
     border-radius: var(--tab-radius);
 
     /*grid to center text vertically*/ /*Not needed if using flex box????*/
@@ -91,7 +107,6 @@ nav {
     background-color: var(--page-color);
     position: relative;
 }
-
 
 /*Password Generator Specific Styles*/
 .container.password-generator {
