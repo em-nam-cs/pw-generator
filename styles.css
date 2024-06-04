@@ -30,12 +30,8 @@ body {
     text-align: center;
 }
 
-.password-generator {
-    text-align: start;
-
-}
-
-.container {
+/*Password Generator Specific Styles*/
+.container.password-generator {
     background-color: var(--background-color);
     padding: 3rem;
     margin: 3rem;
@@ -130,14 +126,71 @@ label {
 }
 
 .submit-btn:hover {
-    background-color: color-mix(
-        in srgb,
-        var(--accent-color),
-        transparent 90%
-    );
+    background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
     border-color: color-mix(in srgb, var(--body-text-color), transparent 50%);
 }
 
 input[type="checkbox"] {
     height: 1.25rem;
+}
+
+/*Password Tester Specific Styles*/
+.container.password-tester {
+    text-align: center;
+    background-color: var(--background-color);
+    border: 3px solid var(--body-text-color);
+    border-radius: 10px;
+    padding: 3rem;
+    margin: 3rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.strength-meter {
+    height: calc(var(--strength-meter-radius) * 2);
+    width: 100%;
+    border: 3px solid color-mix(in srgb, var(--accent-color) 80%, black);
+    border-radius: var(--strength-meter-radius);
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.strength-meter::before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    border-radius: var(--strength-meter-radius);
+    background-color: var(--accent-color);
+    height: 100%;
+
+    width: calc(1% * var(--strength, 0));
+    transition: width 200ms;
+}
+
+.password-input {
+    border-radius: 0.5rem;
+    height: 3rem;
+    padding: 1rem;
+
+    background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
+    border: 2px solid var(--body-text-color);
+    color: var(--body-text-color);
+    text-align: center;
+    font-size: larger;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.password-input:focus,
+.password-input:hover {
+    outline: none;
+    border-color: color-mix(in srgb, var(--body-text-color), transparent 50%);
+}
+
+.recs > * {
+    margin: 0.5rem;
+    color: color-mix(in srgb, var(--body-text-color), transparent 30%);
 }

@@ -114,7 +114,7 @@ function characterTypeWeakness(password, regex, type) {
             message: `Include at least one ${type}`,
             deduction: 15,
         };
-    } else if (matches.length <= 10) {
+    } else if (matches.length < 2) {
         return {
             message: `Include more ${type}s`,
             deduction: 5,
