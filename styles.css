@@ -10,43 +10,77 @@
     --background-color: #b6c3ce;
     --accent-color: #076974;
     --body-text-color: #0b0033;
+    --nav-background: var(--body-text-color);
     --pw-text-color: #f0f0f0;
+    --nav-text-color: var(--pw-text-color);
 }
 
 body {
     background-color: var(--page-color);
     color: var(--body-text-color);
 
-    /*del*/
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* justify-content: center; */
-
-    /*del*/
-
     display: grid;
-    /* grid-template-rows: auto 2fr; */
+    grid-template-rows: auto 1fr;
+    row-gap: 5rem;
     align-items: start;
 
     height: 100vh;
     overflow: hidden;
     margin: 0;
+    margin-bottom: 20px;
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
         sans-serif;
-
     text-align: center;
 }
 
 .layout {
-    max-height: 500px;
-    min-height: 70px;
+    /* margin: 20px 50px; */
+    background-color: var(--nav-background);
+    width: 100%;
+    font-size: large;
+    min-height: 3rem;
+}
+
+nav {
+    /* background-color:#0b0033;
+    width: 100%;
+    font-size: large; */
+}
+
+.nav-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+
+    align-items: center;
+    list-style: none;
+}
+
+.nav-list a {
+    color: var(--nav-text-color);
+    text-decoration: none;
+    display: block;
+    padding: 1rem 0;
+    /* height: 100%; */
+    /* padding: 0; */
+}
+
+.nav-list li {
+    text-align: center;
+    background-color: blue;
+}
+
+.nav-list li.active {
+    background-color: lightblue;
 }
 
 /*Password Generator Specific Styles*/
 .container.password-generator {
     background-color: var(--background-color);
     padding: 3rem;
-    margin: 3rem;
+    margin: 0 3rem;
     border: #5e6472;
     border-radius: 10px;
     border: 3px solid var(--body-text-color);
@@ -58,7 +92,6 @@ body {
 
     text-align: start;
 }
-
 
 .form {
     display: grid;
@@ -156,7 +189,7 @@ input[type="checkbox"] {
     border: 3px solid var(--body-text-color);
     border-radius: 10px;
     padding: 3rem;
-    margin: 3rem;
+    margin: 0 3rem;
 
     display: flex;
     flex-direction: column;
