@@ -55,13 +55,6 @@ body {
     font-size: large;
 }
 
-nav {
-    /*same as using the wrapper div.layout*/
-    /* background-color:#0b0033;
-    width: 100%;
-    font-size: large; */
-}
-
 .nav-list {
     /* background-color: pink; */
     display: grid;
