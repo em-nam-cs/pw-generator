@@ -27,7 +27,8 @@ const includeUpperEl = document.getElementById("includeUpper");
 const includeNumEl = document.getElementById("includeNum");
 const includeBasicSymbolsEl = document.getElementById("includeBasicSymbols");
 const includeAllSymbolsEl = document.getElementById("includeAllSymbols");
-const pwDisplayEl = document.getElementById("pwDisplay");
+// const pwDisplayContainer = document.getElementById("pw-display-container");
+const pwDisplay = document.getElementById("pw-display");
 
 charAmountNum.addEventListener("input", syncCharAmount);
 charAmountRange.addEventListener("input", syncCharAmount);
@@ -55,7 +56,7 @@ function submitForm(e) {
         includeAllSymbols
     );
 
-    pwDisplayEl.innerText = password;
+    pwDisplay.innerText = password;
 }
 
 /**

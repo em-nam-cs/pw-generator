@@ -37,13 +37,15 @@
         <div class="container password-generator">
             <h1 class="title">Password Generator</h1>
             <h2
-                id="pwDisplay"
-                class="pw-display"
+                id="pw-display-container"
+                class="pw-display-container"
                 aria-placeholder="password"
             >
-                generated_Password
+                <!-- generated_Password -->
+                <span id="pw-display" class="pw-display">generated_Password</span>
                 <img src="assets/imgs/content-copy.svg" alt="copy-icon-clipboard" class="copy-icon">
             </h2>
+            
             <form
                 id="pwGeneratorForm"
                 class="form"
