@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <link
+            rel="stylesheet"
+            href="styles.css"
+        />
+        <title>Password Tester</title>
+    </head>
+    <body>
+        <div class="layout">
+            <nav>
+                <ul class="nav-list">
+                    <li>
+                        <a href="home.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="generator.html"> Password Generator</a>
+                    </li>
+                    <li class="active">
+                        <a
+                            href="tester.html"
+                            aria-current="page"
+                            >Password Strength Tester</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="container password-tester">
+            <h1 class="title">Password Strength Tester</h1>
+            <div
+                class="strength-meter"
+                id="strength-meter"
+            ></div>
+            <input
+                class="password-input"
+                id="password-input"
+                placeholder="test password here"
+                type="text"
+                autofocus
+                aria-labelledby="password"
+            />
+
+            <div
+                class="recs"
+                id="recs"
+            ></div>
+        </div>
+
+        <script src="tester.js"></script>
+    </body>
+</html>

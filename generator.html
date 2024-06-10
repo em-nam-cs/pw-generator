@@ -13,13 +13,35 @@
         />
     </head>
     <body>
-        <div class="container">
+        <div class="layout">
+            <nav>
+                <ul class="nav-list">
+                    <li>
+                        <a href="home.html">Home</a>
+                    </li>
+                    <li class="active">
+                        <a
+                            href="generator.html"
+                            aria-current="page"
+                        >
+                            Password Generator</a
+                        >
+                    </li>
+                    <li>
+                        <a href="tester.html">Password Strength Tester</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="container password-generator">
             <h1 id="title">Password Generator</h1>
             <h2
                 id="pwDisplay"
                 class="pw-display"
+                aria-placeholder="password"
             >
-                password
+                generated_Password
             </h2>
             <form
                 id="pwGeneratorForm"
@@ -100,6 +122,6 @@
             </form>
         </div>
 
-        <script src="script.js"></script>
+        <script src="generator.js"></script>
     </body>
 </html>
