@@ -162,7 +162,7 @@ body {
     width: 3rem;
 }
 
-#title {
+.title {
     font-family: "Courier New", Courier, monospace;
     text-align: center;
     margin: 0;
@@ -269,4 +269,9 @@ input[type="checkbox"] {
 .recs > * {
     margin: 0.5rem;
     color: color-mix(in srgb, var(--body-text-color), transparent 30%);
+}
+
+.copy-icon{
+    height: 50px;
+    width: 50px;
 }
