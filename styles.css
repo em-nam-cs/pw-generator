@@ -9,15 +9,10 @@
 
 
 TODO Copy paste: 
-- change color of svg, (without needing to copy paste rgb into filter color
-- position the paste
-- darken and bigger on hover
-- functionality of the copy/paste js
-
 TODO: have svg in file and directly inline (currently only using inline html)
 @todo feedback when pw copied and pasted
-@todo: when pasting sometimes requires selecting 'paste' from dropdown (I think when coming from diff browser)
 
+@todo: when pasting sometimes requires selecting 'paste' from dropdown (I think when coming from diff browser)
 */
 
 *::before,
@@ -34,6 +29,7 @@ TODO: have svg in file and directly inline (currently only using inline html)
     --body-text-color: #0b0033;
     --nav-background: var(--body-text-color);
     --pw-text-color: #f0f0f0;
+    --popup-color: darkgrey;
     --pw-text-filter: invert(99%) sepia(4%) saturate(232%) hue-rotate(240deg)
         brightness(114%) contrast(88%);
     --nav-text-color: var(--pw-text-color);
@@ -117,6 +113,10 @@ body {
 .nav-list li.active {
     background-color: var(--page-color);
     position: relative;
+}
+
+.hidden {
+    visibility: hidden;
 }
 
 /*Password Generator Specific Styles*/
@@ -226,6 +226,35 @@ label {
 
 .copy-icon:hover {
     color: color-mix(in srgb, var(--pw-text-color), black 20%);
+}
+
+.popup {
+    /* visibility: hidden; */
+
+    border-radius: inherit;
+    font-size: medium;
+    font-weight: 400;
+    background-color: var(--popup-color);
+    color: black;
+
+    width: 4rem;
+    padding: 0.25rem 0.5rem;
+    position: absolute;
+    right: -0.25rem;
+    top: -1.3rem;
+    z-index: 1;
+}
+
+/*popup arrow*/
+.popup::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px; /*size of arrow point*/
+    border-style: solid;
+    border-color: var(--popup-color) transparent transparent transparent;
 }
 
 .submit-btn {
