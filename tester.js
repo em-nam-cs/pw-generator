@@ -23,12 +23,17 @@ const strengthMeter = document.getElementById("strength-meter");
 const pwInput = document.getElementById("password-input");
 const recsContainer = document.getElementById("recs");
 const recs = document.getElementById("recs");
+const pasteBtn = document.getElementById("paste-icon");
 
 window.onload = function () {
     pwInput.value = "";
 };
 
 pwInput.addEventListener("input", displayAnalysis);
+pasteBtn.addEventListener("click", async () => {
+    const currPw = await navigator.clipboard.readText();
+    pwInput.value = currPw;
+});
 
 /**
  * Analysizes the password and displays the results. It clears the previous
