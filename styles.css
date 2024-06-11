@@ -7,6 +7,13 @@
 -Tried clicking in the pw display first use (test sub btn stand out more)
 -When pasting, and strong pw, no feedback, not sure what strength meter is yet
 
+
+TODO Copy paste: 
+- change color of svg, (without needing to copy paste rgb into filter color
+- position the paste
+- darken and bigger on hover
+- functionality of the copy/paste js
+
 */
 
 *::before,
@@ -23,8 +30,12 @@
     --body-text-color: #0b0033;
     --nav-background: var(--body-text-color);
     --pw-text-color: #f0f0f0;
+    --pw-text-filter: invert(99%) sepia(4%) saturate(232%) hue-rotate(240deg)
+        brightness(114%) contrast(88%);
     --nav-text-color: var(--pw-text-color);
     --tab-radius: 100vh 100vh 0 0;
+
+    --icon-height: 3.5rem;
 
     /*try swapping page color and nav bar bg color*/
     /* --page-color: #0b0033; */
@@ -184,16 +195,11 @@ label {
     text-align: center;
     font-weight: 600;
 
-    /* display: grid; */
-    /* grid-template-columns: auto 50px; */
-    /* justify-items: center; */
     position: relative;
 }
 
 .pw-display {
     display: block;
-    /* width: 100%; */
-    /* height: 100%; */
 }
 
 .copy-icon {
@@ -201,9 +207,16 @@ label {
     right: 0rem;
     top: 0rem;
 
-    height: 3.5rem;
-    /* width: 50px; */
+    height: var(--icon-height);
     padding: 1rem;
+
+    color: var(--pw-text-color);
+}
+
+.copy-icon:hover {
+    height: calc(var(--icon-height) * 1.05);
+    color: color-mix(in srgb, var(--pw-text-color), black 20%);
+    cursor: pointer;
 }
 
 .submit-btn {
