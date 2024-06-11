@@ -26,16 +26,28 @@ const pwInput = document.getElementById("password-input");
 const recsContainer = document.getElementById("recs");
 const recs = document.getElementById("recs");
 const pasteBtn = document.getElementById("paste-icon");
+const pastePopup = document.getElementById("popup-paste");
 
 window.onload = function () {
     pwInput.value = "";
 };
 
 pwInput.addEventListener("input", displayAnalysis);
-pasteBtn.addEventListener("click", async () => {
+pasteBtn.addEventListener("click", pastePassword);
+
+async function pastePassword() {
+    pastePopup.classList.add("hidden");
     const currPw = await navigator.clipboard.readText();
     pwInput.value = currPw;
     displayAnalysis();
+}
+
+pasteBtn.addEventListener("mouseover", () => {
+    pastePopup.classList.remove("hidden");
+});
+
+pasteBtn.addEventListener("mouseout", () => {
+    pastePopup.classList.add("hidden");
 });
 
 /**

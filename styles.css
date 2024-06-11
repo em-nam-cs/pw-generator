@@ -118,6 +118,32 @@ body {
 .hidden {
     visibility: hidden;
 }
+.popup {
+    border-radius: inherit;
+    font-size: medium;
+    font-weight: 400;
+    background-color: var(--popup-color);
+    color: black;
+
+    width: 4rem;
+    padding: 0.25rem 0.5rem;
+    position: absolute;
+    right: -0.25rem;
+    top: -1.3rem;
+    z-index: 1;
+}
+
+/*popup arrow*/
+.popup::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px; /*size of arrow point*/
+    border-style: solid;
+    border-color: var(--popup-color) transparent transparent transparent;
+}
 
 /*Password Generator Specific Styles*/
 .container.password-generator {
@@ -228,35 +254,6 @@ label {
     color: color-mix(in srgb, var(--pw-text-color), black 20%);
 }
 
-.popup {
-    /* visibility: hidden; */
-
-    border-radius: inherit;
-    font-size: medium;
-    font-weight: 400;
-    background-color: var(--popup-color);
-    color: black;
-
-    width: 4rem;
-    padding: 0.25rem 0.5rem;
-    position: absolute;
-    right: -0.25rem;
-    top: -1.3rem;
-    z-index: 1;
-}
-
-/*popup arrow*/
-.popup::after {
-    content: " ";
-    position: absolute;
-    top: 100%; /* At the bottom of the tooltip */
-    left: 50%;
-    margin-left: -6px;
-    border-width: 6px; /*size of arrow point*/
-    border-style: solid;
-    border-color: var(--popup-color) transparent transparent transparent;
-}
-
 .submit-btn {
     cursor: pointer;
     grid-column: 1 / -1;
@@ -319,7 +316,7 @@ input[type="checkbox"] {
 }
 
 .password-input {
-    border-radius: 0.5rem;
+    border-radius: inherit;
     height: 100%;
     width: 100%;
     padding: 1rem;
@@ -345,6 +342,7 @@ input[type="checkbox"] {
 }
 
 .password-input-container {
+    border-radius: 0.5rem;
     position: relative;
 }
 
