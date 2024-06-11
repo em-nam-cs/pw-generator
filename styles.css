@@ -7,6 +7,12 @@
 -Tried clicking in the pw display first use (test sub btn stand out more)
 -When pasting, and strong pw, no feedback, not sure what strength meter is yet
 
+
+TODO Copy paste: 
+TODO: have svg in file and directly inline (currently only using inline html)
+@todo feedback when pw copied and pasted
+
+@todo: when pasting sometimes requires selecting 'paste' from dropdown (I think when coming from diff browser)
 */
 
 *::before,
@@ -23,8 +29,13 @@
     --body-text-color: #0b0033;
     --nav-background: var(--body-text-color);
     --pw-text-color: #f0f0f0;
+    --popup-color: darkgrey;
+    --pw-text-filter: invert(99%) sepia(4%) saturate(232%) hue-rotate(240deg)
+        brightness(114%) contrast(88%);
     --nav-text-color: var(--pw-text-color);
     --tab-radius: 100vh 100vh 0 0;
+
+    --icon-height: 3.5rem;
 
     /*try swapping page color and nav bar bg color*/
     /* --page-color: #0b0033; */
@@ -104,6 +115,36 @@ body {
     position: relative;
 }
 
+.hidden {
+    visibility: hidden;
+}
+.popup {
+    border-radius: inherit;
+    font-size: medium;
+    font-weight: 400;
+    background-color: var(--popup-color);
+    color: black;
+
+    width: 4rem;
+    padding: 0.25rem 0.5rem;
+    position: absolute;
+    right: -0.25rem;
+    top: -1.3rem;
+    z-index: 1;
+}
+
+/*popup arrow*/
+.popup::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px; /*size of arrow point*/
+    border-style: solid;
+    border-color: var(--popup-color) transparent transparent transparent;
+}
+
 /*Password Generator Specific Styles*/
 .container.password-generator {
     background-color: var(--background-color);
@@ -162,7 +203,7 @@ body {
     width: 3rem;
 }
 
-#title {
+.title {
     font-family: "Courier New", Courier, monospace;
     text-align: center;
     margin: 0;
@@ -173,7 +214,7 @@ label {
     font-size: large;
 }
 
-.pw-display {
+.pw-display-container {
     background-color: var(--accent-color);
     color: var(--pw-text-color);
     padding: 1rem;
@@ -183,6 +224,34 @@ label {
     border: 1px solid var(--body-text-color);
     text-align: center;
     font-weight: 600;
+
+    position: relative;
+}
+
+.pw-display {
+    display: block;
+}
+
+.icon {
+    position: absolute;
+    right: 0rem;
+    top: 0rem;
+
+    height: var(--icon-height);
+    padding: 1rem;
+}
+
+.icon:hover {
+    height: calc(var(--icon-height) * 1.05);
+    cursor: pointer;
+}
+
+.copy-icon {
+    color: var(--pw-text-color);
+}
+
+.copy-icon:hover {
+    color: color-mix(in srgb, var(--pw-text-color), black 20%);
 }
 
 .submit-btn {
@@ -247,23 +316,42 @@ input[type="checkbox"] {
 }
 
 .password-input {
-    border-radius: 0.5rem;
-    height: 3rem;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
     padding: 1rem;
+
+    background-color: transparent;
 
     background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
     border: 2px solid var(--body-text-color);
     color: var(--body-text-color);
+
     text-align: center;
     font-size: larger;
     font-weight: 600;
     letter-spacing: 1px;
+
+    display: block;
 }
 
 .password-input:focus,
 .password-input:hover {
     outline: none;
     border-color: color-mix(in srgb, var(--body-text-color), transparent 50%);
+}
+
+.password-input-container {
+    border-radius: 0.5rem;
+    position: relative;
+}
+
+.paste-icon {
+    color: var(--body-text-color);
+}
+
+.paste-icon:hover {
+    color: color-mix(in srgb, var(--body-text-color), transparent 30%);
 }
 
 .recs > * {

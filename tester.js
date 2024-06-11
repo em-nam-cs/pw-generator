@@ -14,6 +14,8 @@ to improve the password will be given below
     @todo check how to do with regex instead of if statements
     @todo make deductions smoother/check values
     @todo other factors of a password??
+
+    
   */
 
 const MAX_STRENGTH_METER = 100;
@@ -23,12 +25,30 @@ const strengthMeter = document.getElementById("strength-meter");
 const pwInput = document.getElementById("password-input");
 const recsContainer = document.getElementById("recs");
 const recs = document.getElementById("recs");
+const pasteBtn = document.getElementById("paste-icon");
+const pastePopup = document.getElementById("popup-paste");
 
 window.onload = function () {
     pwInput.value = "";
 };
 
 pwInput.addEventListener("input", displayAnalysis);
+pasteBtn.addEventListener("click", pastePassword);
+
+async function pastePassword() {
+    pastePopup.classList.add("hidden");
+    const currPw = await navigator.clipboard.readText();
+    pwInput.value = currPw;
+    displayAnalysis();
+}
+
+pasteBtn.addEventListener("mouseover", () => {
+    pastePopup.classList.remove("hidden");
+});
+
+pasteBtn.addEventListener("mouseout", () => {
+    pastePopup.classList.add("hidden");
+});
 
 /**
  * Analysizes the password and displays the results. It clears the previous

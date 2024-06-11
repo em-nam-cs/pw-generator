@@ -17,7 +17,7 @@
             <nav>
                 <ul class="nav-list">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="/">Home</a>
                     </li>
                     <li class="active">
                         <a
@@ -35,14 +35,41 @@
         </div>
 
         <div class="container password-generator">
-            <h1 id="title">Password Generator</h1>
+            <h1 class="title">Password Generator</h1>
             <h2
-                id="pwDisplay"
-                class="pw-display"
+                id="pw-display-container"
+                class="pw-display-container"
                 aria-placeholder="password"
             >
-                generated_Password
+                <!-- generated_Password -->
+                <span
+                    id="pw-display"
+                    class="pw-display"
+                    >generated_Password</span
+                >
+                <!-- <img
+                    src="assets/imgs/content-copy.svg"
+                    alt="copy-icon-clipboard"
+                    class="copy-icon"
+                /> -->
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    class="copy-icon icon"
+                    id="copy-icon"
+                >
+                    <path
+                        fill="currentColor"
+                        d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"
+                    />
+                </svg>
+                <span
+                    id="popup-copy"
+                    class="popup hidden"
+                    >copy</span
+                >
             </h2>
+
             <form
                 id="pwGeneratorForm"
                 class="form"

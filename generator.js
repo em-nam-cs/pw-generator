@@ -27,11 +27,30 @@ const includeUpperEl = document.getElementById("includeUpper");
 const includeNumEl = document.getElementById("includeNum");
 const includeBasicSymbolsEl = document.getElementById("includeBasicSymbols");
 const includeAllSymbolsEl = document.getElementById("includeAllSymbols");
-const pwDisplayEl = document.getElementById("pwDisplay");
+// const pwDisplayContainer = document.getElementById("pw-display-container");
+const pwDisplay = document.getElementById("pw-display");
+const copyBtn = document.getElementById("copy-icon");
+const copyPopup = document.getElementById("popup-copy");
 
 charAmountNum.addEventListener("input", syncCharAmount);
 charAmountRange.addEventListener("input", syncCharAmount);
 form.addEventListener("submit", submitForm);
+copyBtn.addEventListener("click", copyPassword);
+
+copyBtn.addEventListener("mouseover", () => {
+    copyPopup.classList.remove("hidden");
+    copyPopup.innerText = "copy";
+});
+
+copyBtn.addEventListener("mouseout", () => {
+    copyPopup.classList.add("hidden");
+});
+
+function copyPassword() {
+    navigator.clipboard.writeText(pwDisplay.innerText);
+    copyPopup.classList.remove("hidden");
+    copyPopup.innerText = "copied";
+}
 
 /**
  * functionality for when the form is submitted and the password should be 
@@ -55,7 +74,7 @@ function submitForm(e) {
         includeAllSymbols
     );
 
-    pwDisplayEl.innerText = password;
+    pwDisplay.innerText = password;
 }
 
 /**
