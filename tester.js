@@ -20,6 +20,7 @@ to improve the password will be given below
 
 const MAX_STRENGTH_METER = 100;
 const MIN_REPEAT_LENGTH = 3;
+const MAX_PW_REC = "Nice! That is a strong password!";
 
 const strengthMeter = document.getElementById("strength-meter");
 const pwInput = document.getElementById("password-input");
@@ -57,6 +58,7 @@ pasteBtn.addEventListener("mouseout", () => {
  * recommendations
  */
 function displayAnalysis() {
+    console.log("DISPLAY");
     clearAnalysis();
     weaknesses = calcPwStrength(pwInput.value);
     let strength = MAX_STRENGTH_METER;
@@ -72,6 +74,14 @@ function displayAnalysis() {
             recs.appendChild(recElement);
         }
         strengthMeter.style.setProperty("--strength", strength);
+    }
+
+    console.log(`strength: ${strength}`);
+
+    if (recs.firstChild == null && pwInput.value != "") {
+        const recElement = document.createElement("div");
+        recElement.innerText = MAX_PW_REC;
+        recs.appendChild(recElement);
     }
 }
 
