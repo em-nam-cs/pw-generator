@@ -294,7 +294,7 @@ input[type="checkbox"] {
 }
 
 .strength-meter {
-    height: calc(var(--strength-meter-radius) * 2);
+    height: calc(var(--strength-meter-radius) * 1.5);
     width: 100%;
     border: 3px solid color-mix(in srgb, var(--accent-color) 80%, black);
     border-radius: var(--strength-meter-radius);
@@ -307,13 +307,24 @@ input[type="checkbox"] {
     content: " ";
     position: absolute;
     left: 0;
-    border-radius: var(--strength-meter-radius);
+    /* border-radius: var(--strength-meter-radius); */
     background-color: var(--accent-color);
     height: 100%;
 
     width: calc(1% * var(--strength, 0));
     transition: width 200ms;
 }
+
+.strength-score {
+    border: 1px solid black;
+    width: 5rem;
+    position: absolute;
+    left: calc(1% * var(--strength, 0));
+
+    /* padding: 0; */
+    /* margin: 0; */
+}
+
 
 .password-input {
     border-radius: inherit;

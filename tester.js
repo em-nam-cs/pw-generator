@@ -36,13 +36,6 @@ window.onload = function () {
 pwInput.addEventListener("input", displayAnalysis);
 pasteBtn.addEventListener("click", pastePassword);
 
-async function pastePassword() {
-    pastePopup.classList.add("hidden");
-    const currPw = await navigator.clipboard.readText();
-    pwInput.value = currPw;
-    displayAnalysis();
-}
-
 pasteBtn.addEventListener("mouseover", () => {
     pastePopup.classList.remove("hidden");
 });
@@ -50,6 +43,25 @@ pasteBtn.addEventListener("mouseover", () => {
 pasteBtn.addEventListener("mouseout", () => {
     pastePopup.classList.add("hidden");
 });
+
+strengthMeter.addEventListener("mouseover", showStrengthScore);
+
+strengthMeter.addEventListener("mouseout", () => {
+    console.log("HIDE SCORE")
+})
+
+function showStrengthScore(){
+    console.log("SHOWING SCORE")
+    strengthMeter.before
+}
+
+async function pastePassword() {
+    pastePopup.classList.add("hidden");
+    const currPw = await navigator.clipboard.readText();
+    pwInput.value = currPw;
+    displayAnalysis();
+}
+
 
 /**
  * Analysizes the password and displays the results. It clears the previous
