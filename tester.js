@@ -76,14 +76,14 @@ function displayAnalysis() {
         strengthMeter.style.setProperty("--strength", strength);
     }
 
-    console.log(`strength: ${strength}`);
-
-    if (recs.firstChild == null && pwInput.value != "") {
+    if (strength == MAX_STRENGTH_METER && pwInput.value != "") {
         const recElement = document.createElement("div");
         recElement.innerText = MAX_PW_REC;
         recs.appendChild(recElement);
     }
 }
+
+
 
 /**
  * clears the password strength bar and the recommendations displays
