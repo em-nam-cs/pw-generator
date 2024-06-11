@@ -14,6 +14,8 @@ to improve the password will be given below
     @todo check how to do with regex instead of if statements
     @todo make deductions smoother/check values
     @todo other factors of a password??
+
+    
   */
 
 const MAX_STRENGTH_METER = 100;
@@ -33,6 +35,7 @@ pwInput.addEventListener("input", displayAnalysis);
 pasteBtn.addEventListener("click", async () => {
     const currPw = await navigator.clipboard.readText();
     pwInput.value = currPw;
+    displayAnalysis();
 });
 
 /**
