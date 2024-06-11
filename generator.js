@@ -29,10 +29,15 @@ const includeBasicSymbolsEl = document.getElementById("includeBasicSymbols");
 const includeAllSymbolsEl = document.getElementById("includeAllSymbols");
 // const pwDisplayContainer = document.getElementById("pw-display-container");
 const pwDisplay = document.getElementById("pw-display");
+const copyBtn = document.getElementById("copy-icon");
 
 charAmountNum.addEventListener("input", syncCharAmount);
 charAmountRange.addEventListener("input", syncCharAmount);
 form.addEventListener("submit", submitForm);
+copyBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText(pwDisplay.innerText);
+});
+
 
 /**
  * functionality for when the form is submitted and the password should be 
