@@ -315,6 +315,12 @@ input[type="checkbox"] {
     transition: width 200ms;
 }
 
+.strength-meter-score {
+    margin-right: 0px;
+    /* background-color: pink; */
+    text-align: end;
+}
+
 .password-input {
     border-radius: inherit;
     height: 100%;
