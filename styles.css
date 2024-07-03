@@ -316,9 +316,10 @@ input[type="checkbox"] {
 }
 
 .strength-meter-score {
-    margin-right: 0px;
-    /* background-color: pink; */
+    margin-right: 15px;
     text-align: end;
+    color: var(--accent-color); /*not sold on this vs body text color*/
+
 }
 
 .password-input {

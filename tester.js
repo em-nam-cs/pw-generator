@@ -27,6 +27,7 @@ const recsContainer = document.getElementById("recs");
 const recs = document.getElementById("recs");
 const pasteBtn = document.getElementById("paste-icon");
 const pastePopup = document.getElementById("popup-paste");
+const strengthMeterScoreEl = document.getElementById("strength-meter-score");
 
 window.onload = function () {
     pwInput.value = "";
@@ -72,6 +73,7 @@ function displayAnalysis() {
             recs.appendChild(recElement);
         }
         strengthMeter.style.setProperty("--strength", strength);
+        strengthMeterScoreEl.innerText = `${strength}/100`;
     }
 }
 
@@ -83,6 +85,7 @@ function clearAnalysis() {
         recs.removeChild(recs.lastChild);
     }
     strengthMeter.style.setProperty("--strength", 0);
+    strengthMeterScoreEl.innerText = `0/100`;
 }
 
 /**
