@@ -15,6 +15,16 @@ TODO: have svg in file and directly inline (currently only using inline html)
 @todo: when pasting sometimes requires selecting 'paste' from dropdown (I think when coming from diff browser)
 */
 
+/*
+TODO Pw Strength feedback
+/*check that strength meter height is var in all the right places, 
+I don't think I actually need it for the score. TODO:
+- position the score and the marking bar
+- add more padding to top of strength bar so room for score
+- cahnge the score content in js
+- display the score only on hover
+*/
+
 *::before,
 *::after,
 * {
@@ -118,6 +128,7 @@ body {
 .hidden {
     visibility: hidden;
 }
+
 .popup {
     border-radius: inherit;
     font-size: medium;
@@ -294,21 +305,23 @@ input[type="checkbox"] {
 }
 
 .strength-meter {
-    height: calc(var(--strength-meter-radius) * 1.5);
+    --strength-meter-height: calc(var(--strength-meter-radius) * 1.5);
+    height: var(--strength-meter-height);
     width: 100%;
     border: 3px solid color-mix(in srgb, var(--accent-color) 80%, black);
     border-radius: var(--strength-meter-radius);
     margin: 0 auto;
     position: relative;
-    overflow: hidden;
 }
 
 .strength-meter::before {
     content: " ";
     position: absolute;
     left: 0;
-    /* border-radius: var(--strength-meter-radius); */
+    border-top-left-radius: var(--strength-meter-radius);
+    border-bottom-left-radius: var(--strength-meter-radius);
     background-color: var(--accent-color);
+    background-color: red;
     height: 100%;
 
     width: calc(1% * var(--strength, 0));
@@ -317,14 +330,33 @@ input[type="checkbox"] {
 
 .strength-score {
     border: 1px solid black;
-    width: 5rem;
+    --score-width: 5rem;
+    width: var(--score-width);
     position: absolute;
-    left: calc(1% * var(--strength, 0));
+    left: calc((1% * var(--strength, 0)) - (var(--score-width)) / 2);
+    top: -10px;
 
     /* padding: 0; */
     /* margin: 0; */
 }
 
+.strength-score::after {
+    content: " ";
+    border: 2px pink solid;
+
+    height: var(--strength-meter-height);
+    width: 2px;
+
+    position: absolute;
+    left: 50%;
+    bottom: 0%;
+    overflow: visible;
+    /* top: 100%;  */
+    /* At the bottom of the tooltip */
+    /* left: 50%; */
+    /* margin-left: -6px; */
+    /* border-width: 6px; size of arrow point */
+}
 
 .password-input {
     border-radius: inherit;
