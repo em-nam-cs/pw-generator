@@ -329,13 +329,16 @@ input[type="checkbox"] {
 }
 
 .strength-score {
+    --score-height: calc(var(--strength-meter-height) + 0.25rem);
+    --score-width: 4rem;
+
     border: 1px solid black;
-    --score-width: 5rem;
+
     width: var(--score-width);
     position: absolute;
     left: calc((1% * var(--strength, 0)) - (var(--score-width)) / 2);
     /* top: -50px; */
-    top: calc(-1 * var(--strength-meter-height));
+    top: calc(-1 * var(--score-height));
 
     /* padding: 0; */
     /* margin: 0; */
@@ -343,14 +346,14 @@ input[type="checkbox"] {
 
 .strength-score::after {
     content: "";
-    border: 2px purple solid;
+    border: 1px black solid;
 
-    height: var(--strength-meter-height);
+    height: var(--score-height);
     width: 2px;
 
     position: absolute;
     left: 50%;
-    bottom: -100%;
+    bottom: calc(-1 * var(--score-height));
     /* bottom: 0%; */
 
     /* overflow: visible; */
