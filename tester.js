@@ -85,15 +85,33 @@ function displayAnalysis() {
             recElement.innerText = weaknesses[i].message;
             recs.appendChild(recElement);
         }
-        strengthMeter.style.setProperty("--strength", strength);
-        strengthScoreEl.classList.remove("hidden");
-        strengthScoreEl.innerText = `${strength}/100`;
+        
     }
+
+    strengthMeter.style.setProperty("--strength", strength);
+    strengthScoreEl.classList.remove("hidden");
+    strengthScoreEl.innerText = `${strength}/100`;
+
+    strengthScoreEl.style.setProperty("--score-height", "25");
+    let scoreHeight = strengthScoreEl.style.getPropertyValue("--score-height");
+
+    console.log("prop:");
+    console.log(scoreHeight);
+    strengthScoreEl.style.setProperty("--score-line-height", scoreHeight);
 
     if (strength == MAX_STRENGTH_METER && pwInput.value != "") {
         const recElement = document.createElement("div");
         recElement.innerText = MAX_PW_REC;
         recs.appendChild(recElement);
+
+        // let scoreHeight = strengthScoreEl.style.getPropertyValue(
+        //     "--score-height-no-unit"
+        // );
+        // console.log(scoreHeight);
+        // strengthScoreEl.style.setProperty(
+        //     "--score-line-height",
+        //     scoreHeight / 2
+        // );
     }
 }
 

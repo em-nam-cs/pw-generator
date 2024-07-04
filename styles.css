@@ -31,6 +31,7 @@ I don't think I actually need it for the score. TODO:
     box-sizing: border-box;
     --strength-meter-radius: 1rem;
     --strength-meter-height: calc(var(--strength-meter-radius) * 1.5);
+    --transition-time: 200ms;
 }
 
 :root {
@@ -325,20 +326,22 @@ input[type="checkbox"] {
     height: 100%;
 
     width: calc(1% * var(--strength, 0));
-    transition: width 200ms;
+    transition: width var(--transition-time);
 }
 
 .strength-score {
     --score-height: calc(var(--strength-meter-height) + 0.25rem);
+    --score-height-no-unit: 1.75;
     --score-width: 4rem;
+    --score-line-height: calc(var(--score-height-no-unit) * 1rem);
 
     border: 1px solid black;
 
     width: var(--score-width);
     position: absolute;
-    left: calc((1% * var(--strength, 0)) - (var(--score-width)) / 2);
-    /* top: -50px; */
     top: calc(-1 * var(--score-height));
+    left: calc((1% * var(--strength, 0)) - (var(--score-width)) / 2);
+    transition: left var(--transition-time);
 
     /* padding: 0; */
     /* margin: 0; */
@@ -348,20 +351,21 @@ input[type="checkbox"] {
     content: "";
     border: 1px black solid;
 
-    height: var(--score-height);
+    height: var(--score-line-height);
     width: 2px;
 
     position: absolute;
     left: 50%;
-    bottom: calc(-1 * var(--score-height));
-    /* bottom: 0%; */
+    bottom: calc(-1 * var(--score-line-height));
 
-    /* overflow: visible; */
-    /* top: 100%;  */
-    /* At the bottom of the tooltip */
-    /* left: 50%; */
-    /* margin-left: -6px; */
-    /* border-width: 6px; size of arrow point */
+    bottom: calc(-1 * var(--score-height) / 2);
+    height: calc(var(--score-height) / 2);
+}
+
+
+.strength-score::after.full-score {
+    bottom: calc(-1 * var(--score-height) / 2);
+    height: calc(var(--score-height) / 2);
 }
 
 .password-input {
