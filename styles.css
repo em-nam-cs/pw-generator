@@ -304,7 +304,7 @@ input[type="checkbox"] {
 }
 
 .strength-meter::before {
-    content: " ";
+    content: "";
     position: absolute;
     left: 0;
     border-radius: var(--strength-meter-radius);
@@ -313,6 +313,15 @@ input[type="checkbox"] {
 
     width: calc(1% * var(--strength, 0));
     transition: width 200ms;
+}
+
+.strength-score {
+    color: white;
+    position: absolute;
+    width: calc(1% * var(--strength, 0));
+    margin-top: 2px;
+    /* background-color: pink; */
+    height: calc(2 * var(--strength-meter-radius));
 }
 
 .password-input {
