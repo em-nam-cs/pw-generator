@@ -19,6 +19,7 @@ to improve the password will be given below
   */
 
 const MAX_STRENGTH_METER = 100;
+const MAX_PW_REC = "Nice! That is a strong password.";
 const LOW_STRENGTH_SCORE_MIN = 15;
 const MIN_REPEAT_LENGTH = 3;
 
@@ -75,13 +76,19 @@ function displayAnalysis() {
         }
     }
 
-    strengthMeter.style.setProperty("--strength", strength);
-    strengthScoreEl.innerText = `${strength}/100`;
-    if (strength < LOW_STRENGTH_SCORE_MIN) {
-        strengthScoreEl.classList.add("low-score");
-    }
+    if (pwInput.value != "") {
+        strengthMeter.style.setProperty("--strength", strength);
+        strengthScoreEl.innerText = `${strength}/100`;
 
-    if (strength == MAX_STRENGTH_METER && pwInput.value) {
+        if (strength < LOW_STRENGTH_SCORE_MIN) {
+            strengthScoreEl.classList.add("low-score");
+        }
+
+        if (strength == MAX_STRENGTH_METER) {
+            const recElement = document.createElement("div");
+            recElement.innerText = MAX_PW_REC;
+            recs.appendChild(recElement);
+        }
     }
 }
 
