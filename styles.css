@@ -30,6 +30,7 @@ I don't think I actually need it for the score. TODO:
 * {
     box-sizing: border-box;
     --strength-meter-radius: 1rem;
+    --strength-meter-height: calc(var(--strength-meter-radius) * 1.5);
 }
 
 :root {
@@ -305,7 +306,7 @@ input[type="checkbox"] {
 }
 
 .strength-meter {
-    --strength-meter-height: calc(var(--strength-meter-radius) * 1.5);
+    /* --strength-meter-height: calc(var(--strength-meter-radius) * 1.5); */
     height: var(--strength-meter-height);
     width: 100%;
     border: 3px solid color-mix(in srgb, var(--accent-color) 80%, black);
@@ -315,13 +316,12 @@ input[type="checkbox"] {
 }
 
 .strength-meter::before {
-    content: " ";
+    content: "";
     position: absolute;
     left: 0;
     border-top-left-radius: var(--strength-meter-radius);
     border-bottom-left-radius: var(--strength-meter-radius);
     background-color: var(--accent-color);
-    background-color: red;
     height: 100%;
 
     width: calc(1% * var(--strength, 0));
@@ -334,23 +334,26 @@ input[type="checkbox"] {
     width: var(--score-width);
     position: absolute;
     left: calc((1% * var(--strength, 0)) - (var(--score-width)) / 2);
-    top: -10px;
+    /* top: -50px; */
+    top: calc(-1 * var(--strength-meter-height));
 
     /* padding: 0; */
     /* margin: 0; */
 }
 
 .strength-score::after {
-    content: " ";
-    border: 2px pink solid;
+    content: "";
+    border: 2px purple solid;
 
     height: var(--strength-meter-height);
     width: 2px;
 
     position: absolute;
     left: 50%;
-    bottom: 0%;
-    overflow: visible;
+    bottom: -100%;
+    /* bottom: 0%; */
+
+    /* overflow: visible; */
     /* top: 100%;  */
     /* At the bottom of the tooltip */
     /* left: 50%; */
