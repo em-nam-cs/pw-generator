@@ -28,6 +28,7 @@ const recsContainer = document.getElementById("recs");
 const recs = document.getElementById("recs");
 const pasteBtn = document.getElementById("paste-icon");
 const pastePopup = document.getElementById("popup-paste");
+const strengthScoreEl = document.getElementById("strength-score");
 
 window.onload = function () {
     pwInput.value = "";
@@ -47,12 +48,12 @@ pasteBtn.addEventListener("mouseout", () => {
 strengthMeter.addEventListener("mouseover", showStrengthScore);
 
 strengthMeter.addEventListener("mouseout", () => {
-    console.log("HIDE SCORE")
-})
+    console.log("HIDE SCORE");
+});
 
-function showStrengthScore(){
-    console.log("SHOWING SCORE")
-    strengthMeter.before
+function showStrengthScore() {
+    console.log("SHOWING SCORE");
+    strengthMeter.before;
 }
 
 async function pastePassword() {
@@ -61,7 +62,6 @@ async function pastePassword() {
     pwInput.value = currPw;
     displayAnalysis();
 }
-
 
 /**
  * Analysizes the password and displays the results. It clears the previous
@@ -86,6 +86,8 @@ function displayAnalysis() {
             recs.appendChild(recElement);
         }
         strengthMeter.style.setProperty("--strength", strength);
+        strengthScoreEl.classList.remove("hidden");
+        strengthScoreEl.innerText = `${strength}/100`;
     }
 
     if (strength == MAX_STRENGTH_METER && pwInput.value != "") {
@@ -95,8 +97,6 @@ function displayAnalysis() {
     }
 }
 
-
-
 /**
  * clears the password strength bar and the recommendations displays
  */
@@ -105,6 +105,8 @@ function clearAnalysis() {
         recs.removeChild(recs.lastChild);
     }
     strengthMeter.style.setProperty("--strength", 0);
+    strengthScoreEl.innerText = "0/100";
+    strengthScoreEl.classList.add("hidden");
 }
 
 /**
