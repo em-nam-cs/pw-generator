@@ -323,6 +323,11 @@ input[type="checkbox"] {
     height: calc(2 * var(--strength-meter-radius));
 }
 
+.strength-score.low-score {
+    margin-top: 5px;
+    font-size: small;
+}
+
 .password-input {
     border-radius: inherit;
     height: 100%;
