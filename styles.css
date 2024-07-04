@@ -331,9 +331,8 @@ input[type="checkbox"] {
 
 .strength-score {
     --score-height: calc(var(--strength-meter-height) + 0.25rem);
-    --score-height-no-unit: 1.75;
     --score-width: 4rem;
-    --score-line-height: calc(var(--score-height-no-unit) * 1rem);
+    --score-line-height: var(--score-height);
 
     border: 1px solid black;
 
@@ -347,6 +346,10 @@ input[type="checkbox"] {
     /* margin: 0; */
 }
 
+.strength-score.max-score {
+    --score-line-height: calc(var(--score-height)/2);
+}
+
 .strength-score::after {
     content: "";
     border: 1px black solid;
@@ -358,8 +361,8 @@ input[type="checkbox"] {
     left: 50%;
     bottom: calc(-1 * var(--score-line-height));
 
-    bottom: calc(-1 * var(--score-height) / 2);
-    height: calc(var(--score-height) / 2);
+    /* bottom: calc(-1 * var(--score-height) / 2);
+    height: calc(var(--score-height) / 2); */
 }
 
 
