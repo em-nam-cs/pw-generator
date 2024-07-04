@@ -19,6 +19,7 @@ to improve the password will be given below
   */
 
 const MAX_STRENGTH_METER = 100;
+const MAX_PW_REC = "Nice! That is a strong password.";
 const MIN_REPEAT_LENGTH = 3;
 
 const strengthMeter = document.getElementById("strength-meter");
@@ -27,7 +28,7 @@ const recsContainer = document.getElementById("recs");
 const recs = document.getElementById("recs");
 const pasteBtn = document.getElementById("paste-icon");
 const pastePopup = document.getElementById("popup-paste");
-const strengthMeterScoreEl = document.getElementById("strength-meter-score");
+const strengthScoreEl = document.getElementById("strength-meter-score");
 
 window.onload = function () {
     pwInput.value = "";
@@ -72,10 +73,21 @@ function displayAnalysis() {
             recElement.innerText = weaknesses[i].message;
             recs.appendChild(recElement);
         }
+    }
+
+
+    if (pwInput.value != "") {
         strengthMeter.style.setProperty("--strength", strength);
-        strengthMeterScoreEl.innerText = `${strength}/100`;
+        strengthScoreEl.innerText = `${strength}/100`;
+
+        if (strength == MAX_STRENGTH_METER) {
+            const recElement = document.createElement("div");
+            recElement.innerText = MAX_PW_REC;
+            recs.appendChild(recElement);
+        }
     }
 }
+
 
 /**
  * clears the password strength bar and the recommendations displays
@@ -85,7 +97,7 @@ function clearAnalysis() {
         recs.removeChild(recs.lastChild);
     }
     strengthMeter.style.setProperty("--strength", 0);
-    strengthMeterScoreEl.innerText = `0/100`;
+    strengthScoreEl.innerText = `0/100`;
 }
 
 /**
