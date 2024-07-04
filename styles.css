@@ -316,11 +316,10 @@ input[type="checkbox"] {
 }
 
 .strength-score {
-    color: white;
+    color: var(--background-color);
     position: absolute;
     width: calc(1% * var(--strength, 0));
     margin-top: 2px;
-    /* background-color: pink; */
     height: calc(2 * var(--strength-meter-radius));
 }
 
