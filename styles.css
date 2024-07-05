@@ -25,11 +25,11 @@ TODO: have svg in file and directly inline (currently only using inline html)
 :root {
     --page-color: #859aad;
     --background-color: #b6c3ce;
-    --accent-color: #065560;
+    --accent-color: #076974;
     --body-text-color: #0b0033;
     --nav-background: var(--body-text-color);
     --pw-text-color: #f0f0f0;
-    --popup-color: #969696;
+    --popup-color: darkgrey;
     --pw-text-filter: invert(99%) sepia(4%) saturate(232%) hue-rotate(240deg)
         brightness(114%) contrast(88%);
     --nav-text-color: var(--pw-text-color);
