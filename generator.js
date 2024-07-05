@@ -20,6 +20,11 @@ const BASIC_SYMBOLS_ASCII_CODES = [
     33, 35, 36, 37, 38, 40, 41, 42, 43, 45, 46, 58, 59, 61, 63, 64, 91, 93, 126,
 ];
 
+const MAX_PERCENT_SYMBOL = 0.25;
+const MIN_PERCENT_NUM = 0.3;
+const NUM_LETTERS = 26;
+const NUM_NUMBERS = 10;
+
 const charAmountRange = document.getElementById("charAmountRange");
 const charAmountNum = document.getElementById("charAmountNum");
 const form = document.getElementById("pwGeneratorForm");
@@ -95,27 +100,20 @@ function generatePw(
 ) {
     let pw = "";
     let charOptions = [];
+    const multipliers = new Map();
+    multipliers.set("lower", 1);
+    multipliers.set("upper", 1);
+    multipliers.set("num", 1);
+
+    let numSymbols = 0;
+    let goalTotal = 0;
+    let currTotal = 0;
 
     //Add ascii code to array for each option
-    generateCharOptions(
-        charOptions,
-        LOWERCASE_LOWER_LIMIT,
-        LOWERCASE_UPPER_LIMIT
-    );
-
-    if (includeUpper) {
-        generateCharOptions(
-            charOptions,
-            UPPERCASE_LOWER_LIMIT,
-            UPPERCASE_UPPER_LIMIT
-        );
-    }
-    if (includeNum) {
-        generateCharOptions(charOptions, NUM_LOWER_LIMIT, NUM_UPPER_LIMIT);
-    }
-
     if (includeBasicSymbols) {
         charOptions = charOptions.concat(BASIC_SYMBOLS_ASCII_CODES);
+        goalTotal = charOptions.length / MAX_PERCENT_SYMBOL;
+        numSymbols = charOptions.length;
     }
 
     if (includeAllSymbols) {
@@ -123,9 +121,62 @@ function generatePw(
             generateCharOptions(
                 charOptions,
                 SYMBOL_LOWER_LIMITS[i],
-                SYMBOL_UPPER_LIMITS[i]
+                SYMBOL_UPPER_LIMITS[i],
+                1 /**multiplier of 1, bc minimum, want to weight this the least */
             );
         }
+        goalTotal = charOptions.length / MAX_PERCENT_SYMBOL;
+        numSymbols = charOptions.length;
+    }
+
+    updateMultipliers(
+        goalTotal,
+        currTotal,
+        numSymbols,
+        multipliers,
+        true /**include lower case letters */,
+        includeUpper,
+        includeNum
+    );
+
+    if (includeUpper) {
+        generateCharOptions(
+            charOptions,
+            UPPERCASE_LOWER_LIMIT,
+            UPPERCASE_UPPER_LIMIT,
+            multipliers.get("upper")
+        );
+    }
+
+    generateCharOptions(
+        charOptions,
+        LOWERCASE_LOWER_LIMIT,
+        LOWERCASE_UPPER_LIMIT,
+        multipliers.get("lower")
+    );
+
+    if (includeNum) {
+        currNum = multipliers.get("num") * NUM_NUMBERS;
+        goalNumTotal = (charOptions.length + currNum) * MIN_PERCENT_NUM;
+
+        /**update num multiplier last because have a minimum trying to reach, so
+        set letters to false so only updating number goal */
+        updateMultipliers(
+            goalNumTotal,
+            currNum,
+            0,
+            multipliers,
+            false,
+            false,
+            true
+        );
+
+        generateCharOptions(
+            charOptions,
+            NUM_LOWER_LIMIT,
+            NUM_UPPER_LIMIT,
+            multipliers.get("num")
+        );
     }
 
     //Randomly chose a value for each character needed in password
@@ -138,15 +189,49 @@ function generatePw(
 }
 
 /**
+ * 
+ * @param {*} goal 
+ * @param {*} curr 
+ * @param {*} numSymbols 
+ * @param {*} multipliers 
+ * @param {*} lower 
+ * @param {*} upper 
+ * @param {*} num 
+ */
+function updateMultipliers(
+    goal,
+    curr,
+    numSymbols,
+    multipliers,
+    lower,
+    upper,
+    num
+) {
+    while (goal > curr) {
+        multipliers.set("lower", (multipliers.get("lower") + 1) * lower);
+        multipliers.set("upper", (multipliers.get("upper") + 1) * upper);
+        multipliers.set("num", (multipliers.get("num") + 1) * num);
+
+        curr =
+            numSymbols +
+            multipliers.get("lower") * NUM_LETTERS +
+            multipliers.get("upper") * NUM_LETTERS +
+            multipliers.get("num") * NUM_NUMBERS;
+    }
+}
+
+/**
  * generates the ascii character codes within the given range and appends it
  * to the existing array storing the possible character options
  * @param {*} chars array with possible character options
  * @param {*} lowerLimit lower limit of the range (inclusive)
  * @param {*} upperLimit upper limit of the range (inclusive)
  */
-function generateCharOptions(chars, lowerLimit, upperLimit) {
+function generateCharOptions(chars, lowerLimit, upperLimit, multiplier) {
     for (let i = lowerLimit; i <= upperLimit; i++) {
-        chars.push(i);
+        for (let j = 0; j < multiplier; j++) {
+            chars.push(i);
+        }
     }
 }
 
