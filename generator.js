@@ -20,7 +20,7 @@ const BASIC_SYMBOLS_ASCII_CODES = [
     33, 35, 36, 37, 38, 40, 41, 42, 43, 45, 46, 58, 59, 61, 63, 64, 91, 93, 126,
 ];
 
-const MAX_PERCENT_SYMBOL = 0.25;
+const MAX_PERCENT_SYMBOL = 0.25; /**cannot be/divide by zero */
 const MIN_PERCENT_NUM = 0.3;
 const NUM_LETTERS = 26;
 const NUM_NUMBERS = 10;
@@ -32,7 +32,6 @@ const includeUpperEl = document.getElementById("includeUpper");
 const includeNumEl = document.getElementById("includeNum");
 const includeBasicSymbolsEl = document.getElementById("includeBasicSymbols");
 const includeAllSymbolsEl = document.getElementById("includeAllSymbols");
-// const pwDisplayContainer = document.getElementById("pw-display-container");
 const pwDisplay = document.getElementById("pw-display");
 const copyBtn = document.getElementById("copy-icon");
 const copyPopup = document.getElementById("popup-copy");
@@ -71,13 +70,9 @@ function submitForm(e) {
     const includeNum = includeNumEl.checked;
     const includeBasicSymbols = includeBasicSymbolsEl.checked;
     const includeAllSymbols = includeAllSymbolsEl.checked;
-    const password = generatePw(
-        charAmount,
-        includeUpper,
-        includeNum,
-        includeBasicSymbols,
-        includeAllSymbols
-    );
+    // prettier-ignore
+    const password = generatePw(charAmount, includeUpper, includeNum,
+        includeBasicSymbols, includeAllSymbols);
 
     pwDisplay.innerText = password;
 }
@@ -91,13 +86,9 @@ function submitForm(e) {
  * @param {*} includeBasicSymbols boolean when true include the BASIC_SYMBOLS
  * @param {*} includeAllSymbols boolean when true include ascii char 33-47, 58 - 64, 91-96, 123-126
  */
-function generatePw(
-    charAmount,
-    includeUpper,
-    includeNum,
-    includeBasicSymbols,
-    includeAllSymbols
-) {
+// prettier-ignore
+function generatePw(charAmount, includeUpper, includeNum, includeBasicSymbols,
+    includeAllSymbols) {
     let pw = "";
     let charOptions = [];
     const multipliers = new Map();
@@ -105,78 +96,36 @@ function generatePw(
     multipliers.set("upper", 1);
     multipliers.set("num", 1);
 
-    let numSymbols = 0;
-    let goalTotal = 0;
-    let currTotal = 0;
-
     //Add ascii code to array for each option
     if (includeBasicSymbols) {
         charOptions = charOptions.concat(BASIC_SYMBOLS_ASCII_CODES);
-        goalTotal = charOptions.length / MAX_PERCENT_SYMBOL;
-        numSymbols = charOptions.length;
     }
 
     if (includeAllSymbols) {
         for (let i = 0; i < SYMBOL_LOWER_LIMITS.length; i++) {
-            generateCharOptions(
-                charOptions,
-                SYMBOL_LOWER_LIMITS[i],
-                SYMBOL_UPPER_LIMITS[i],
-                1 /**multiplier of 1, bc minimum, want to weight this the least */
-            );
+            /**multiplier of 1, bc minimum, want to weight this the least */
+            generateCharOptions(charOptions, SYMBOL_LOWER_LIMITS[i],
+                SYMBOL_UPPER_LIMITS[i], 1);
         }
-        goalTotal = charOptions.length / MAX_PERCENT_SYMBOL;
-        numSymbols = charOptions.length;
     }
 
-    updateMultipliers(
-        goalTotal,
-        currTotal,
-        numSymbols,
-        multipliers,
-        true /**include lower case letters */,
-        includeUpper,
-        includeNum
-    );
+    let numSymbols = charOptions.length;
+    let goalTotal = numSymbols / MAX_PERCENT_SYMBOL;
+
+    updateMultipliers(goalTotal, numSymbols, multipliers, includeUpper,
+        includeNum);
 
     if (includeUpper) {
-        generateCharOptions(
-            charOptions,
-            UPPERCASE_LOWER_LIMIT,
-            UPPERCASE_UPPER_LIMIT,
-            multipliers.get("upper")
-        );
+        generateCharOptions(charOptions, UPPERCASE_LOWER_LIMIT, 
+            UPPERCASE_UPPER_LIMIT, multipliers.get("upper"));
     }
 
-    generateCharOptions(
-        charOptions,
-        LOWERCASE_LOWER_LIMIT,
-        LOWERCASE_UPPER_LIMIT,
-        multipliers.get("lower")
-    );
+    generateCharOptions(charOptions, LOWERCASE_LOWER_LIMIT,
+        LOWERCASE_UPPER_LIMIT, multipliers.get("lower"));
 
     if (includeNum) {
-        currNum = multipliers.get("num") * NUM_NUMBERS;
-        goalNumTotal = (charOptions.length + currNum) * MIN_PERCENT_NUM;
-
-        /**update num multiplier last because have a minimum trying to reach, so
-        set letters to false so only updating number goal */
-        updateMultipliers(
-            goalNumTotal,
-            currNum,
-            0,
-            multipliers,
-            false,
-            false,
-            true
-        );
-
-        generateCharOptions(
-            charOptions,
-            NUM_LOWER_LIMIT,
-            NUM_UPPER_LIMIT,
-            multipliers.get("num")
-        );
+        generateCharOptions(charOptions, NUM_LOWER_LIMIT, 
+            NUM_UPPER_LIMIT, multipliers.get("num"));
     }
 
     //Randomly chose a value for each character needed in password
@@ -189,26 +138,23 @@ function generatePw(
 }
 
 /**
- * 
- * @param {*} goal 
- * @param {*} curr 
- * @param {*} numSymbols 
- * @param {*} multipliers 
- * @param {*} lower 
- * @param {*} upper 
- * @param {*} num 
+ *
+ * @param {*} goal
+ * @param {*} numSymbols
+ * @param {*} multipliers
+ * @param {*} upper
+ * @param {*} num
  */
-function updateMultipliers(
-    goal,
-    curr,
-    numSymbols,
-    multipliers,
-    lower,
-    upper,
-    num
-) {
+function updateMultipliers(goal, numSymbols, multipliers, upper, num) {
+    let curr =
+        numSymbols +
+        multipliers.get("lower") * NUM_LETTERS +
+        multipliers.get("upper") * NUM_LETTERS +
+        multipliers.get("num") * NUM_NUMBERS;
+
     while (goal > curr) {
-        multipliers.set("lower", (multipliers.get("lower") + 1) * lower);
+        //always includes lower case letters
+        multipliers.set("lower", multipliers.get("lower") + 1);
         multipliers.set("upper", (multipliers.get("upper") + 1) * upper);
         multipliers.set("num", (multipliers.get("num") + 1) * num);
 
@@ -217,6 +163,24 @@ function updateMultipliers(
             multipliers.get("lower") * NUM_LETTERS +
             multipliers.get("upper") * NUM_LETTERS +
             multipliers.get("num") * NUM_NUMBERS;
+    }
+
+    /**update the number multiplier */
+    if (num) {
+        let currNum = multipliers.get("num") * NUM_NUMBERS;
+        let goalNum = curr * MIN_PERCENT_NUM;
+        console.log(goalNum);
+
+        while (goalNum > currNum) {
+            multipliers.set("num", (multipliers.get("num") + 1) * num);
+            currNum = multipliers.get("num") * NUM_NUMBERS;
+            curr =
+                numSymbols +
+                multipliers.get("lower") * NUM_LETTERS +
+                multipliers.get("upper") * NUM_LETTERS +
+                multipliers.get("num") * NUM_NUMBERS;
+            goalNum = curr * MIN_PERCENT_NUM;
+        }
     }
 }
 
