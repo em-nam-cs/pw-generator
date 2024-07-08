@@ -78,8 +78,12 @@ function submitForm(e) {
 }
 
 /**
- * default is to only include ascii char 97-122 (lowercase letters) all ascii 
-    char are based in decimal
+ * Generates the password string using the users' choices of character types
+ *      and number of characters. The default is to only include ascii
+ *      char 97-122 (lowercase letters), all ascii char are based in decimal.
+ *      Based on the char types chosen, different ratios of each character is
+ *      added to an array. Then a RNG chooses each char in the password. After
+ *      choosing each char, the string is returned.
  * @param {*} charAmount determines how many characters to generate
  * @param {*} includeUpper boolean when true include ascii char 65 - 90
  * @param {*} includeNum boolean when true include ascii char 48 - 57
@@ -93,10 +97,10 @@ function generatePw(charAmount, includeUpper, includeNum, includeBasicSymbols,
     let charOptions = [];
     const multipliers = new Map();
     multipliers.set("lower", 1);
-    multipliers.set("upper", 1);
-    multipliers.set("num", 1);
+    multipliers.set("upper", 1 * includeUpper);
+    multipliers.set("num", 1 * includeNum);
 
-    //Add ascii code to array for each option
+    //Add ascii code to array for symbols
     if (includeBasicSymbols) {
         charOptions = charOptions.concat(BASIC_SYMBOLS_ASCII_CODES);
     }
@@ -109,24 +113,22 @@ function generatePw(charAmount, includeUpper, includeNum, includeBasicSymbols,
         }
     }
 
+    //update multipliers needed to satisfy percentages
     let numSymbols = charOptions.length;
     let goalTotal = numSymbols / MAX_PERCENT_SYMBOL;
-
     updateMultipliers(goalTotal, numSymbols, multipliers, includeUpper,
         includeNum);
 
-    if (includeUpper) {
-        generateCharOptions(charOptions, UPPERCASE_LOWER_LIMIT, 
-            UPPERCASE_UPPER_LIMIT, multipliers.get("upper"));
-    }
+    //Add ascii code to array for chars with multipliers
+    //should I wrap each in a conditional? (less comp than creating function on the stack)
+    generateCharOptions(charOptions, UPPERCASE_LOWER_LIMIT, 
+        UPPERCASE_UPPER_LIMIT, multipliers.get("upper"));
 
     generateCharOptions(charOptions, LOWERCASE_LOWER_LIMIT,
         LOWERCASE_UPPER_LIMIT, multipliers.get("lower"));
 
-    if (includeNum) {
-        generateCharOptions(charOptions, NUM_LOWER_LIMIT, 
-            NUM_UPPER_LIMIT, multipliers.get("num"));
-    }
+    generateCharOptions(charOptions, NUM_LOWER_LIMIT, 
+        NUM_UPPER_LIMIT, multipliers.get("num"));
 
     //Randomly chose a value for each character needed in password
     for (let i = 0; i < charAmount; i++) {
@@ -138,12 +140,17 @@ function generatePw(charAmount, includeUpper, includeNum, includeBasicSymbols,
 }
 
 /**
- *
- * @param {*} goal
- * @param {*} numSymbols
- * @param {*} multipliers
- * @param {*} upper
- * @param {*} num
+ * Update the multipliers for lower, upper, and number characters based on how
+ *      many symbols exist and the global constants of percentage of
+ *      symbols and numbers. While the curr character options are too small to
+ *      satisfy the symbol and number percentages, respectively, increase
+ *      the multipliers evenly. Then increase the number multiplier until its
+ *         percentage is also satisfied.
+ * @param {*} goal target minimum goal of total characters needed
+ * @param {*} numSymbols number of symbol options (basic, all)
+ * @param {*} multipliers Map of multipliers for each character type
+ * @param {*} upper bool if upper chars are included
+ * @param {*} num bool if number chars are included
  */
 function updateMultipliers(goal, numSymbols, multipliers, upper, num) {
     let curr =
@@ -190,6 +197,8 @@ function updateMultipliers(goal, numSymbols, multipliers, upper, num) {
  * @param {*} chars array with possible character options
  * @param {*} lowerLimit lower limit of the range (inclusive)
  * @param {*} upperLimit upper limit of the range (inclusive)
+ * @param {*} multiplier int that represents how many multiples of the char set
+ *      needs to be appended in order to meet the percentage requirements
  */
 function generateCharOptions(chars, lowerLimit, upperLimit, multiplier) {
     for (let i = lowerLimit; i <= upperLimit; i++) {
