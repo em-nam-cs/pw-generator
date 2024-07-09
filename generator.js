@@ -107,6 +107,7 @@ function generatePw(charAmount, includeUpper, includeNum, includeBasicSymbols,
 
     if (includeAllSymbols) {
         for (let i = 0; i < SYMBOL_LOWER_LIMITS.length; i++) {
+            console.time("test");
             /**multiplier of 1, bc minimum, want to weight this the least */
             generateCharOptions(charOptions, SYMBOL_LOWER_LIMITS[i],
                 SYMBOL_UPPER_LIMITS[i], 1);
@@ -120,15 +121,21 @@ function generatePw(charAmount, includeUpper, includeNum, includeBasicSymbols,
         includeNum);
 
     //Add ascii code to array for chars with multipliers
-    //should I wrap each in a conditional? (less comp than creating function on the stack)
-    generateCharOptions(charOptions, UPPERCASE_LOWER_LIMIT, 
-        UPPERCASE_UPPER_LIMIT, multipliers.get("upper"));
-
+    //always includes lowercase
     generateCharOptions(charOptions, LOWERCASE_LOWER_LIMIT,
         LOWERCASE_UPPER_LIMIT, multipliers.get("lower"));
 
-    generateCharOptions(charOptions, NUM_LOWER_LIMIT, 
-        NUM_UPPER_LIMIT, multipliers.get("num"));
+    //if statement not needed because multiplier would handle the false case
+    // (no appending char type) but conditional prevents function call 
+    if (includeUpper){
+        generateCharOptions(charOptions, UPPERCASE_LOWER_LIMIT, 
+            UPPERCASE_UPPER_LIMIT, multipliers.get("upper"));
+    }
+
+    if (includeNum){
+        generateCharOptions(charOptions, NUM_LOWER_LIMIT, 
+            NUM_UPPER_LIMIT, multipliers.get("num"));
+    }
 
     //Randomly chose a value for each character needed in password
     for (let i = 0; i < charAmount; i++) {
@@ -176,7 +183,6 @@ function updateMultipliers(goal, numSymbols, multipliers, upper, num) {
     if (num) {
         let currNum = multipliers.get("num") * NUM_NUMBERS;
         let goalNum = curr * MIN_PERCENT_NUM;
-        console.log(goalNum);
 
         while (goalNum > currNum) {
             multipliers.set("num", (multipliers.get("num") + 1) * num);
@@ -201,8 +207,8 @@ function updateMultipliers(goal, numSymbols, multipliers, upper, num) {
  *      needs to be appended in order to meet the percentage requirements
  */
 function generateCharOptions(chars, lowerLimit, upperLimit, multiplier) {
-    for (let i = lowerLimit; i <= upperLimit; i++) {
-        for (let j = 0; j < multiplier; j++) {
+    for (let j = 0; j < multiplier; j++) {
+        for (let i = lowerLimit; i <= upperLimit; i++) {
             chars.push(i);
         }
     }
